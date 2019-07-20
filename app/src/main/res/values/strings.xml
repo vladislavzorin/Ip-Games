@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">IP-Games</string>
+    <string name="retry">Retry</string>
+    <string name="post_error">An error occurred while loading the posts</string>
+
+    <string name="short_lorem_ipsum">Мониторинг игровых серверов</string>
+    <string name="cheak_all">Смотреть Все</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string-array name="gamelist">
+        <item>Counter-Strike: Global Offensive</item>
+        <item>Counter-Strike 1.6</item>
+        <item>Team Fortress 2</item>
+        <item>Left 4 Dead 2</item>
+        <item>Counter-Strike: Source</item>
+        <item>Minecraft</item>
+        <item>San Andreas Multiplayer</item>
+        <item>TeamSpeak 3</item>
+        <item>Arma 3</item>
+        <item>Left 4 Dead</item>
+        <item>Garrys Mod</item>
+        <item>Multi Theft Auto</item>
+        <item>Battlefield 4</item>
+        <item>Rust</item>
+        <item>Space Engineers</item>
+        <item>Unturned</item>
+        <item>Day of Defeat: Source</item>
+        <item>7 Days to Die</item>
+        <item>Killing Floor 2</item>
+        <item>Half-Life</item>
+        <item>No More Room in Hell</item>
+        <item>DayZ</item>
+        <item>Half-Life 2</item>
+        <item>Ark Survival Evolved</item>
+        <item>Zombie Panic! Source</item>
+        <item>Call of Duty 4</item>
+        <item>Counter Strike: Condition Zero</item>
+        <item>Insurgency 2</item>
+        <item>HurtWorld</item>
+        <item>Insurgency: Modern Infantry Combat</item>
+    </string-array>
+
+    <string-array name="gameIDlist">
+        <item>5</item>
+        <item>2</item>
+        <item>11</item>
+        <item>10</item>
+        <item>3</item>
+        <item>19</item>
+        <item>18</item>
+        <item>29</item>
+        <item>28</item>
+        <item>9</item>
+        <item>12</item>
+        <item>24</item>
+        <item>23</item>
+        <item>14</item>
+        <item>34</item>
+        <item>31</item>
+        <item>6</item>
+        <item>22</item>
+        <item>32</item>
+        <item>7</item>
+        <item>30</item>
+        <item>27</item>
+        <item>8</item>
+        <item>26</item>
+        <item>33</item>
+        <item>20</item>
+        <item>4</item>
+        <item>16</item>
+        <item>25</item>
+        <item>15</item>
+    </string-array>
+</resources>

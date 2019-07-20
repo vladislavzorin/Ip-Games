@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "8b8482a1a5ec2876baaf69ab1b91fe74",
+    "entities": [
+      {
+        "tableName": "Servers",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`address` TEXT NOT NULL, `password` INTEGER NOT NULL, `game_id` INTEGER NOT NULL, `name` TEXT NOT NULL, `now` INTEGER NOT NULL, `max` INTEGER NOT NULL, `map_name` TEXT NOT NULL, `img` TEXT NOT NULL, PRIMARY KEY(`address`))",
+        "fields": [
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "game_id",
+            "columnName": "game_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "players.now",
+            "columnName": "now",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "players.max",
+            "columnName": "max",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "map.name",
+            "columnName": "map_name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "map.img",
+            "columnName": "img",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "address"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"8b8482a1a5ec2876baaf69ab1b91fe74\")"
+    ]
+  }
+}
