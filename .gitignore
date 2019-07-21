@@ -11,3 +11,4 @@
 /build
 /captures
 .externalNativeBuild
+/app/src/main/java/ru/ipgames/app/utils/Constants.kt
