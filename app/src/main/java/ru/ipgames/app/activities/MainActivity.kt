@@ -22,12 +22,12 @@ import ru.ipgames.app.R
 import ru.ipgames.app.databinding.ActivityPostListBinding
 import ru.ipgames.app.injection.ViewModelFactory
 import ru.ipgames.app.utils.Tools
-import ru.ipgames.app.viewModels.PostListViewModel
+import ru.ipgames.app.viewModels.ServerListViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityPostListBinding
-    private lateinit var viewModel: PostListViewModel
+    private lateinit var viewModel: ServerListViewModel
     private var errorSnackbar: Snackbar? = null
     private lateinit var linearLayoutManager:LinearLayoutManager
     var page:Int = 1
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.hostingList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.gamesList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(PostListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(ServerListViewModel::class.java)
         viewModel.errorMessage.observe(this, Observer {
                 errorMessage -> if(errorMessage != null) showError(errorMessage) else hideError()
         })
@@ -99,12 +99,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun initComponents(){
-      /*
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-*/
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, maintoolbar,
             R.string.navigation_drawer_open,

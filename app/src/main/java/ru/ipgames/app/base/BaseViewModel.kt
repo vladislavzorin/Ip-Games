@@ -1,7 +1,7 @@
 package ru.ipgames.app.base
 
 import android.arch.lifecycle.ViewModel
-import ru.ipgames.app.viewModels.PostListViewModel
+import ru.ipgames.app.viewModels.ServerListViewModel
 import ru.ipgames.app.viewModels.ServerInfoViewModel
 import ru.ipgames.app.viewModels.ServersViewModel
 import ru.ipgames.app.injection.component.DaggerViewModelInjector
@@ -22,7 +22,7 @@ abstract class BaseViewModel:ViewModel(){
 
     private fun inject() {
         when (this) {
-            is PostListViewModel -> injector.inject(this)
+            is ServerListViewModel -> injector.inject(this)
             is ServersViewModel -> injector.inject(this)
             is ServerInfoViewModel -> injector.inject(this)
            // is AddYourServerViewModel ->injector.inject(this)

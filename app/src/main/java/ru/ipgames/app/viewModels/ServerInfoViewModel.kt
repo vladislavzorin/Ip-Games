@@ -15,12 +15,12 @@ import ru.ipgames.app.base.BaseViewModel
 import ru.ipgames.app.model.InfoAboutPlayer
 import ru.ipgames.app.model.ResultInfo
 import ru.ipgames.app.model.Stats
-import ru.ipgames.app.network.PostApi
+import ru.ipgames.app.network.AppApi
 import javax.inject.Inject
 
 class ServerInfoViewModel: BaseViewModel() {
     @Inject
-    lateinit var postApi: PostApi
+    lateinit var appApi: AppApi
 
     @Inject
     lateinit var adapter: OnlinePlayersAdapter
@@ -50,7 +50,7 @@ class ServerInfoViewModel: BaseViewModel() {
         Log.d("mLog","load -> $ip")
         isShowRefresh.value = true
         serverIP=ip
-        postApi.getInfoAboutServer(ip)
+        appApi.getInfoAboutServer(ip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({result -> onResult(result)
@@ -58,7 +58,7 @@ class ServerInfoViewModel: BaseViewModel() {
                         {oError()
                         it.printStackTrace()})
 
-        postApi.getInfoAboutOnlinePlayersInServer(ip)
+        appApi.getInfoAboutOnlinePlayersInServer(ip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe ({ value -> onResultOnlinePlayers(value.result)
@@ -68,7 +68,7 @@ class ServerInfoViewModel: BaseViewModel() {
                             isShowPlayers.value = View.GONE
                         })
 
-        postApi.getServerStats(ip)
+        appApi.getServerStats(ip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({value->onResultStats(value)},

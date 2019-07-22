@@ -9,8 +9,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.ipgames.app.adapters.MainServersAdapter
 import ru.ipgames.app.adapters.OnlinePlayersAdapter
-import ru.ipgames.app.adapters.PostListAdapter
-import ru.ipgames.app.network.PostApi
+import ru.ipgames.app.adapters.ServerAdapter
+import ru.ipgames.app.network.AppApi
 import ru.ipgames.app.utils.BASE_URL
 
 /**
@@ -21,15 +21,15 @@ import ru.ipgames.app.utils.BASE_URL
 @Suppress("unused")
 object NetworkModule {
     /**
-     * Provides the Post service implementation.
+     * Provides the Server service implementation.
      * @param retrofit the Retrofit object used to instantiate the service
-     * @return the Post service implementation.
+     * @return the Server service implementation.
      */
     @Provides
     @Reusable
     @JvmStatic
-    internal fun providePostApi(retrofit: Retrofit): PostApi {
-        return retrofit.create(PostApi::class.java)
+    internal fun providePostApi(retrofit: Retrofit): AppApi {
+        return retrofit.create(AppApi::class.java)
     }
 
     /**
@@ -51,8 +51,8 @@ object NetworkModule {
     @Provides
     @Reusable
     @JvmStatic
-    internal fun provideAdapter(): PostListAdapter {
-        return PostListAdapter()
+    internal fun provideAdapter(): ServerAdapter {
+        return ServerAdapter()
     }
 
 

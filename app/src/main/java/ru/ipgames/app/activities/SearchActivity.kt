@@ -18,13 +18,13 @@ import ru.ipgames.app.R
 import ru.ipgames.app.injection.component.DaggerViewModelInjector
 import ru.ipgames.app.injection.component.ViewModelInjector
 import ru.ipgames.app.injection.module.NetworkModule
-import ru.ipgames.app.network.PostApi
+import ru.ipgames.app.network.AppApi
 import ru.ipgames.app.utils.Tools
 import javax.inject.Inject
 
 class SearchActivity : AppCompatActivity() {
     @Inject
-    lateinit var postApi: PostApi
+    lateinit var appApi: AppApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,7 @@ class SearchActivity : AppCompatActivity() {
         progress_bar.visibility = View.VISIBLE
         fab.alpha = 0f
 
-        postApi.getInfoAboutServer(et_search.text.toString())
+        appApi.getInfoAboutServer(et_search.text.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({result ->

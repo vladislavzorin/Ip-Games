@@ -1,11 +1,11 @@
 package ru.ipgames.app.utils
 
 import android.support.v7.util.DiffUtil
-import ru.ipgames.app.model.Post
+import ru.ipgames.app.model.Server
 
 class ServerDiffUtilCallBackCallback(
-    private val oldList: List<Post>,
-    private val newList: List<Post>
+    private val oldList: List<Server>,
+    private val newList: List<Server>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize() = oldList.size

@@ -8,23 +8,23 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import ru.ipgames.app.adapters.PostListAdapter
+import ru.ipgames.app.adapters.ServerAdapter
 import ru.ipgames.app.R
 import ru.ipgames.app.base.BaseViewModel
-import ru.ipgames.app.model.Post
-import ru.ipgames.app.model.PostDao
-import ru.ipgames.app.network.PostApi
+import ru.ipgames.app.model.Server
+import ru.ipgames.app.model.ServerDao
+import ru.ipgames.app.network.AppApi
 import ru.ipgames.app.utils.ServerDiffUtilCallBackCallback
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class ServersViewModel(private val postDao: PostDao, private val obs: Observable<Int>): BaseViewModel() {
+class ServersViewModel(private val serverDao: ServerDao, private val obs: Observable<Int>): BaseViewModel() {
 
     @Inject
-    lateinit var adapter: PostListAdapter
+    lateinit var adapter: ServerAdapter
 
     @Inject
-    lateinit var postApi: PostApi
+    lateinit var appApi: AppApi
 
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage: MutableLiveData<Int> = MutableLiveData()
@@ -66,9 +66,9 @@ class ServersViewModel(private val postDao: PostDao, private val obs: Observable
         loadingVisibility.value = View.GONE
     }
 
-    private fun onRetrievePostListSuccess(postList:List<Post>){
+    private fun onRetrievePostListSuccess(serverList:List<Server>){
         Log.d("mLog"," -ОБНОВЛЕНИЕ-")
-       adapter.updatePostList(postList)
+       adapter.updatePostList(serverList)
     }
 
     private fun onRetrievePostListError(){
@@ -79,7 +79,7 @@ class ServersViewModel(private val postDao: PostDao, private val obs: Observable
     private fun loadServers(page:Int){
 
         Log.d("mLog","-loadServers()-")
-        subscription = postApi.getPosts(page)
+        subscription = appApi.getPosts(page)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnTerminate { onRetrievePostListFinish()}
@@ -95,44 +95,43 @@ class ServersViewModel(private val postDao: PostDao, private val obs: Observable
         Log.d("mLog","-ERROR-")
     }
 
-    fun onResult(postList:List<Post>)
+    fun onResult(serverList:List<Server>)
     {
-        val su = Observable.fromCallable {postDao.all}
+        val su = Observable.fromCallable {serverDao.all}
                 .concatMap{
                     dbPostList ->
                     if(dbPostList.isEmpty()) {
                         Log.d("mLog","isEmpty()")
-                        postDao.insertAll(*postList.toTypedArray())
+                        serverDao.insertAll(*serverList.toTypedArray())
                     } else { if(isFirstLoad && !isDBObservable) {
-                        postDao.deleteAll()
+                        serverDao.deleteAll()
                         isFirstLoad=false
                         Log.d("mLog", "-УДАЛЕНИЕ-")
-
                         ObservDB()
                     }
 
-                        val insertList: ArrayList<Post> = ArrayList<Post>()
-                        val updateList: ArrayList<Post> = ArrayList<Post>()
+                        val insertList: ArrayList<Server> = ArrayList<Server>()
+                        val updateList: ArrayList<Server> = ArrayList<Server>()
                         Log.d("mLog", "else isEmpty()")
-                        for (i in 0..postList.size-1) {
-                            if (postDao.countID(postList.toTypedArray().get(i).address) == 0) {
-                                insertList.add(postList.toTypedArray().get(i))
+                        for (i in 0..serverList.size-1) {
+                            if (serverDao.countID(serverList.toTypedArray().get(i).address) == 0) {
+                                insertList.add(serverList.toTypedArray().get(i))
                             } else {
-                                updateList.add(postList.toTypedArray().get(i))
+                                updateList.add(serverList.toTypedArray().get(i))
                             }
                         }
 
                         if (insertList.size > 0) {
-                            postDao.insertAll(*insertList.toTypedArray())
+                            serverDao.insertAll(*insertList.toTypedArray())
                             Log.d("mLog", "insertList.size=${insertList.size}")
                         }
                         if (updateList.size > 0) {
-                            postDao.updateAll(*updateList.toTypedArray())
+                            serverDao.updateAll(*updateList.toTypedArray())
                             Log.d("mLog", "updateList.size=${updateList.size}")
                         }
 
                     }
-                    Observable.just(postDao.all)
+                    Observable.just(serverDao.all)
                 }
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -144,7 +143,7 @@ class ServersViewModel(private val postDao: PostDao, private val obs: Observable
         if (!isDBObservable) {
             isDBObservable=true
             Log.d("mLog", "ObservDB()")
-            val getAll: Disposable? = postDao.all()
+            val getAll: Disposable? = serverDao.all()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ res -> updateRV(res) }, {
                         Log.d("mLog", "-getAll ERROR-")
@@ -153,7 +152,7 @@ class ServersViewModel(private val postDao: PostDao, private val obs: Observable
         }
     }
 
-    fun updateRV(results:List<Post>)
+    fun updateRV(results:List<Server>)
     {
         if (adapter.itemCount !=0) {
             val diffCallback = ServerDiffUtilCallBackCallback(adapter.getData(), results)

@@ -6,7 +6,7 @@ import android.content.Intent
 import android.view.View
 import ru.ipgames.app.activities.ServerInfoActivity
 import ru.ipgames.app.model.Players
-import ru.ipgames.app.model.Post
+import ru.ipgames.app.model.Server
 
 
 class PostViewModel: ViewModel() {
@@ -16,12 +16,12 @@ class PostViewModel: ViewModel() {
     private val gameID = MutableLiveData<String>()
     private lateinit var server_ip:String
 
-    fun bind(post: Post){
-        postTitle.value = post.name
-        postBody.value = post.map.name
-        nowPlayers.value = post.players
-        gameID.value = post.game_id.toString()
-        server_ip=post.address
+    fun bind(server: Server){
+        postTitle.value = server.name
+        postBody.value = server.map.name
+        nowPlayers.value = server.players
+        gameID.value = server.game_id.toString()
+        server_ip=server.address
     }
 
     fun getPostTitle():MutableLiveData<String>{

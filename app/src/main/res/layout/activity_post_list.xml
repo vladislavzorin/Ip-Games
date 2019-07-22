@@ -6,10 +6,8 @@
     <data>
         <variable
             name="viewModel"
-            type="ru.ipgames.app.viewModels.PostListViewModel" />
+            type="ru.ipgames.app.viewModels.ServerListViewModel" />
     </data>
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
