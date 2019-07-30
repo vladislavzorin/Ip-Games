@@ -40,7 +40,6 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
         isLoading.value = true
         loadServers(1)
         initScrollSubscriber()
-
     }
 
     fun initScrollSubscriber(){
@@ -86,9 +85,12 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
                 .doOnError{ ObservDB()}
                 .retryWhen{ob -> ob.take(3).delay(15, TimeUnit.SECONDS)}
                 .repeatWhen {ob -> ob.delay(1 , TimeUnit.MINUTES)}
-                .subscribe({result -> onResult(result)
+                .subscribe({
+                                result -> onResult(result)
                             },
-                        {oError()})
+                            {
+                                oError()
+                            })
     }
 
     fun  oError(){
@@ -130,6 +132,8 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
                             Log.d("mLog", "updateList.size=${updateList.size}")
                         }
 
+                        Log.d("mLog", "onResult is END")
+
                     }
                     Observable.just(serverDao.all)
                 }
@@ -145,7 +149,8 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
             Log.d("mLog", "ObservDB()")
             val getAll: Disposable? = serverDao.all()
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ res -> updateRV(res) }, {
+                    .subscribe({ res -> updateRV(res)
+                        Log.d("mLog", "update ObservDB()")}, {
                         Log.d("mLog", "-getAll ERROR-")
                         it.printStackTrace()
                     })
@@ -154,6 +159,7 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
 
     fun updateRV(results:List<Server>)
     {
+
         if (adapter.itemCount !=0) {
             val diffCallback = ServerDiffUtilCallBackCallback(adapter.getData(), results)
             val diffResult = DiffUtil.calculateDiff(diffCallback, false)

@@ -9,6 +9,7 @@ import ru.ipgames.app.base.BaseViewModel
 class AddYourServerViewModel: BaseViewModel() {
 
     fun getVisibilityView(view: View): MutableLiveData<Int>{
+
         val flag:MutableLiveData<Int> = MutableLiveData()
         when (view.id){
             R.id.lyt_title -> {

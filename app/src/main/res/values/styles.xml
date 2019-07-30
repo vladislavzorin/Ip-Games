@@ -1,9 +1,13 @@
 <resources>
 
-    <!-- Base application theme. -->
-
-
     <style name="AppTheme" parent="BaseTheme" />
+
+
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="colorPrimaryDark">@color/colorWhite</item>
+    </style>
+
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>

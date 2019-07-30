@@ -7,6 +7,9 @@
     <string name="cheak_all">Смотреть Все</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="menu_goToSite">Перейти на сайт</string>
+    <string name="menu_aboutApp">О приложении</string>
+    <string name="drawer_titleGame">Игры</string>
 
     <string-array name="gamelist">
         <item>Counter-Strike: Global Offensive</item>

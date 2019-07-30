@@ -2,19 +2,17 @@ package ru.ipgames.app.injection.component
 
 import dagger.Component
 import ru.ipgames.app.activities.SearchActivity
-import ru.ipgames.app.viewModels.ServerListViewModel
-import ru.ipgames.app.viewModels.PostViewModel
-import ru.ipgames.app.viewModels.ServerInfoViewModel
-import ru.ipgames.app.viewModels.ServersViewModel
+import ru.ipgames.app.viewModels.GamesFragmentViewModel
 import ru.ipgames.app.injection.module.NetworkModule
 import ru.ipgames.app.injection.module.RoomModule
+import ru.ipgames.app.viewModels.*
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [(NetworkModule::class),(RoomModule::class)])
 interface ViewModelInjector{
 
-    fun inject(serverListViewModel: ServerListViewModel)
+    fun inject(serverListViewModel: MainFragmentViewModel)
 
     fun inject(postViewModel: PostViewModel)
 
@@ -25,6 +23,10 @@ interface ViewModelInjector{
     //fun inject(addYourServerViewModel: AddYourServerViewModel)
 
     fun inject(searchActivity: SearchActivity)
+
+    fun inject(hostingsFragmentViewModel: HostingsFragmentViewModel)
+
+    fun inject(gamesFragmentViewModel: GamesFragmentViewModel)
 
     @Component.Builder
     interface Builder {

@@ -1,10 +1,12 @@
 package ru.ipgames.app.utils
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.databinding.BindingAdapter
 import android.support.v7.widget.RecyclerView
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.CardView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -87,6 +89,18 @@ fun setMaxHeight(view: LinearLayout, size:MutableLiveData<Int>) {
                 view.layoutParams = lp
             })
         }
-    }
+}
 
+
+@BindingAdapter("colorCard")
+fun setcolorCard(view: CardView, position:MutableLiveData<Int>) {
+    val parentActivity: AppCompatActivity? = view.getParentActivity()
+    if (parentActivity != null) {
+        position.observe(parentActivity, Observer { value ->
+            var array = view.context.resources.obtainTypedArray(R.array.mdcolor_random)
+            view.setCardBackgroundColor(array.getColor(value!!.rem(14),1))
+            array.recycle()
+        })
+    }
+}
 

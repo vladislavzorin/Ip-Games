@@ -1,33 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:tools="http://schemas.android.com/tools"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
       >
 
-    <group android:checkableBehavior="single">
+    <group>
         <item
                 android:id="@+id/nav_camera"
                 android:icon="@drawable/ic_menu_camera"
-                android:title="Сервер по IP"/>
+                android:title="Главная"/>
         <item
                 android:id="@+id/nav_gallery"
                 android:icon="@drawable/ic_menu_gallery"
-                android:title="Добавить сервер"/>
+                android:title="Сервера"/>
         <item
                 android:id="@+id/nav_slideshow"
                 android:icon="@drawable/ic_menu_slideshow"
-                android:title="Slideshow"/>
+                android:title="Добавить свой сервер"/>
         <item
                 android:id="@+id/nav_manage"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Tools"/>
+                android:title="Найти по IP"/>
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/drawer_titleGame">
         <menu>
-            <item
-                    android:id="@+id/nav_share"
-                    android:icon="@drawable/ic_menu_share"
-                    android:title="О приложении"/>
+            <item android:id="@+id/nav_csgo"
+                  android:title="Counter-Strike: Global Offensive"/>
+
+            <item android:id="@+id/nav_cs"
+                  android:title="Counter-Strike 1.6"/>
+
+            <item android:id="@+id/nav_tf2"
+                  android:title="Team Fortress 2"/>
+
+            <item android:id="@+id/nav_l4d2"
+                  android:title="Left 4 Dead 2"/>
+
+            <item android:id="@+id/nav_css"
+                  android:title="Counter-Strike: Source"/>
+
+            <item android:id="@+id/nav_minecraft"
+                  android:title="Minecraft"/>
+
+            <item android:id="@+id/nav_gta"
+                  android:title="San Andreas Multiplayer"/>
+
+            <item android:id="@+id/nav_ts"
+                  android:title="TeamSpeak 3"/>
+
+            <item android:id="@+id/nav_arma3"
+                  android:title="Arma 3"/>
+
+            <item android:id="@+id/nav_l4d"
+                  android:title="Left 4 Dead"/>
+
+            <item android:id="@+id/nav_gm"
+                  android:title="Garrys Mod"/>
+
+            <item android:id="@+id/nav_mta"
+                  android:title="Multi Theft Auto"/>
+
+            <item android:id="@+id/nav_bf4"
+                  android:title="Battlefield 4"/>
+
+            <item android:id="@+id/nav_rust"
+                  android:title="Rust"/>
+
+            <item android:id="@+id/nav_se"
+                  android:title="Space Engineers"/>
+
+            <item android:id="@+id/nav_unturned"
+                  android:title="Unturned"/>
+
+            <item android:id="@+id/nav_dod"
+                  android:title="Day of Defeat: Source"/>
+
+            <item android:id="@+id/nav_7dod"
+                  android:title="7 Days to Die"/>
+
+            <item android:id="@+id/nav_kf2"
+                  android:title="Killing Floor 2"/>
+
+            <item android:id="@+id/nav_hl"
+                  android:title="Half-Life"/>
+
+            <item android:id="@+id/nav_nmrih"
+                  android:title="No More Room in Hell"/>
+
+            <item android:id="@+id/nav_dayz"
+                  android:title="DayZ"/>
+
+            <item android:id="@+id/nav_hl2"
+                  android:title="Half-Life 2"/>
 
         </menu>
     </item>

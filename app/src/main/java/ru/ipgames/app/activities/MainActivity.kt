@@ -1,9 +1,8 @@
 package ru.ipgames.app.activities
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import android.graphics.drawable.Icon
+import android.os.Build
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
@@ -12,31 +11,42 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
-import io.reactivex.Observable
-import kotlinx.android.synthetic.main.activity_post_list.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ru.ipgames.app.R
-import ru.ipgames.app.databinding.ActivityPostListBinding
-import ru.ipgames.app.injection.ViewModelFactory
+import ru.ipgames.app.databinding.ActivityMainBinding
+import ru.ipgames.app.fragments.GamesFragment
+import ru.ipgames.app.fragments.HostingsFragment
+import ru.ipgames.app.fragments.MainFragment
 import ru.ipgames.app.utils.Tools
-import ru.ipgames.app.viewModels.ServerListViewModel
+import ru.ipgames.app.viewModels.MainFragmentViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private lateinit var binding: ActivityPostListBinding
-    private lateinit var viewModel: ServerListViewModel
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainFragmentViewModel
     private var errorSnackbar: Snackbar? = null
     private lateinit var linearLayoutManager:LinearLayoutManager
     var page:Int = 1
+    val fm = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
-        initBinding()
+        setContentView(R.layout.activity_main)
+
+        initFragment()
         initToolbar()
         initComponents()
+    }
+
+    fun initFragment(){
+
+        val transaction = fm.beginTransaction()
+            .apply { replace(R.id.fragmentLayout, MainFragment()) }
+            .commit()
     }
 
     override fun onBackPressed() {
@@ -59,42 +69,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
             }
             R.id.nav_gallery -> {
-
+                val intent = Intent(this, ServersActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_slideshow -> {
-
+                fm.beginTransaction()
+                    .apply { replace(R.id.fragmentLayout, HostingsFragment()) }
+                    .commit()
             }
             R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
+                fm.beginTransaction()
+                    .apply { replace(R.id.fragmentLayout, GamesFragment()) }
+                    .commit()
             }
 
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
+       // drawer_layout.closeDrawer(GravityCompat.START)
         return true
-    }
-
-    private fun initBinding(){
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_post_list)
-        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        binding.postList.layoutManager = linearLayoutManager
-        binding.hostingList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.gamesList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(ServerListViewModel::class.java)
-        viewModel.errorMessage.observe(this, Observer {
-                errorMessage -> if(errorMessage != null) showError(errorMessage) else hideError()
-        })
-        binding.viewModel = viewModel
     }
 
     private fun initToolbar(){
         setSupportActionBar(maintoolbar)
-        supportActionBar?.title = "Главная"
         Tools.setSystemBarColor(this)
     }
 
@@ -121,23 +117,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         errorSnackbar?.dismiss()
     }
 
-    private fun getScrollObservable(recyclerView: RecyclerView): Observable<Int> {
-        return Observable.create { subscriber->
-            val sl = object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    val linerLayoutManager=recyclerView.layoutManager!!
-                    val count = linerLayoutManager.itemCount
-                    val lastVisible=linearLayoutManager.findLastVisibleItemPosition()
-
-                    if (lastVisible>=count-1 && count/(50*page)>=1){
-                        subscriber.onNext(++page)
-                    }
-                }
-            }
-            recyclerView.addOnScrollListener(sl)
-        }
-    }
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             android.R.id.home -> {
@@ -147,5 +126,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         return super.onOptionsItemSelected(item)
     }
+
+
 
 }
