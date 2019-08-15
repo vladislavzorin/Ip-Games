@@ -16,8 +16,7 @@ class ServerDiffUtilCallBackCallback(
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].name == newList[newItemPosition].name &&
-                oldList[oldItemPosition].players.now == newList[newItemPosition].players.now &&
+        return oldList[oldItemPosition].players.now == newList[newItemPosition].players.now &&
                 oldList[oldItemPosition].map.name == newList[newItemPosition].map.name
     }
 

@@ -2,7 +2,6 @@ package ru.ipgames.app.adapters
 
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import ru.ipgames.app.R

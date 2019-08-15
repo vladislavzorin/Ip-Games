@@ -8,28 +8,41 @@ import ru.ipgames.app.base.BaseViewModel
 
 class AddYourServerViewModel: BaseViewModel() {
 
-    fun getVisibilityView(view: View): MutableLiveData<Int>{
+    var isListVisible:MutableLiveData<Int> = MutableLiveData()
+    var isIpVisible:MutableLiveData<Int> = MutableLiveData()
+    var isConfirmVisible:MutableLiveData<Int> = MutableLiveData()
 
-        val flag:MutableLiveData<Int> = MutableLiveData()
-        when (view.id){
-            R.id.lyt_title -> {
-                flag.value = View.VISIBLE
-                return flag
-            }
+    var numberOfClick:MutableLiveData<Int> = MutableLiveData()
+    var idOfTitleClick:MutableLiveData<Int> = MutableLiveData()
 
-            R.id.lyt_description -> {
-                flag.value = View.GONE
-                return flag
-            }
+    var success_step = 0
+    var current_step = 0
 
-            R.id.lyt_confirmation -> {
-                flag.value = View.GONE
-                return flag
-            }
-
-        }
-        return flag
+    init{
+        isListVisible.value = View.VISIBLE
+        isIpVisible.value = View.GONE
+        isConfirmVisible.value = View.GONE
     }
 
+    fun onTitleClick(view: View){
+        idOfTitleClick.value = view.id
+    }
+
+    fun onClick(view:View){
+        when (view.id){
+            R.id.bt_continue_title ->{
+                numberOfClick.value = 0
+            }
+
+            R.id.bt_continue_description ->{
+                numberOfClick.value = 1
+            }
+
+            R.id.bt_add_event ->{
+
+            }
+        }
+
+    }
 
 }

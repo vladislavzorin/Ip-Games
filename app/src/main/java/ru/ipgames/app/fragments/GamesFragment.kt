@@ -47,7 +47,7 @@ class GamesFragment : Fragment() {
         var layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
                                                         .maintoolbar
                                                         .layoutParams as AppBarLayout.LayoutParams
-        layoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+        layoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
         (activity as AppCompatActivity).maintoolbar.layoutParams = layoutParams
     }
 

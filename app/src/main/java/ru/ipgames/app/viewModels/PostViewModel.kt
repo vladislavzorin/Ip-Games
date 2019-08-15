@@ -8,7 +8,6 @@ import ru.ipgames.app.activities.ServerInfoActivity
 import ru.ipgames.app.model.Players
 import ru.ipgames.app.model.Server
 
-
 class PostViewModel: ViewModel() {
     private val postTitle = MutableLiveData<String>()
     private val postBody = MutableLiveData<String>()

@@ -6,21 +6,22 @@
 
     <group>
         <item
-                android:id="@+id/nav_camera"
-                android:icon="@drawable/ic_menu_camera"
+                android:id="@+id/nav_home"
+                android:icon="@drawable/ic_home"
                 android:title="Главная"/>
         <item
-                android:id="@+id/nav_gallery"
-                android:icon="@drawable/ic_menu_gallery"
+                android:id="@+id/nav_servers"
+                android:icon="@drawable/ic_server"
                 android:title="Сервера"/>
+
         <item
-                android:id="@+id/nav_slideshow"
-                android:icon="@drawable/ic_menu_slideshow"
-                android:title="Добавить свой сервер"/>
-        <item
-                android:id="@+id/nav_manage"
-                android:icon="@drawable/ic_menu_manage"
+                android:id="@+id/nav_search"
+                android:icon="@drawable/ic_search"
                 android:title="Найти по IP"/>
+        <item
+                android:id="@+id/nav_add"
+                android:icon="@drawable/ic_add_server"
+                android:title="Добавить сервер"/>
     </group>
 
     <item android:title="@string/drawer_titleGame">
@@ -82,17 +83,8 @@
             <item android:id="@+id/nav_kf2"
                   android:title="Killing Floor 2"/>
 
-            <item android:id="@+id/nav_hl"
-                  android:title="Half-Life"/>
-
-            <item android:id="@+id/nav_nmrih"
-                  android:title="No More Room in Hell"/>
-
             <item android:id="@+id/nav_dayz"
                   android:title="DayZ"/>
-
-            <item android:id="@+id/nav_hl2"
-                  android:title="Half-Life 2"/>
 
         </menu>
     </item>

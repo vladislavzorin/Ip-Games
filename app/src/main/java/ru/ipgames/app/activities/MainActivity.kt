@@ -2,6 +2,7 @@ package ru.ipgames.app.activities
 
 import android.content.Intent
 import android.graphics.drawable.Icon
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.StringRes
@@ -17,20 +18,20 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ru.ipgames.app.R
 import ru.ipgames.app.databinding.ActivityMainBinding
-import ru.ipgames.app.fragments.GamesFragment
-import ru.ipgames.app.fragments.HostingsFragment
-import ru.ipgames.app.fragments.MainFragment
+import ru.ipgames.app.fragments.*
 import ru.ipgames.app.utils.Tools
 import ru.ipgames.app.viewModels.MainFragmentViewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener ,AboutFragment.OnFragmentInteractionListener{
+
+    override fun onFragmentInteraction(uri: Uri) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainFragmentViewModel
     private var errorSnackbar: Snackbar? = null
-    private lateinit var linearLayoutManager:LinearLayoutManager
-    var page:Int = 1
-    val fm = supportFragmentManager
+    private val fm = this.supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -43,8 +44,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun initFragment(){
-
-        val transaction = fm.beginTransaction()
+        fm.beginTransaction()
             .apply { replace(R.id.fragmentLayout, MainFragment()) }
             .commit()
     }
@@ -64,28 +64,53 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_camera -> {
+            R.id.nav_home -> {
+                fm.beginTransaction()
+                    .apply { replace(R.id.fragmentLayout,MainFragment()) }
+                    .addToBackStack(null)
+                    .commit()
+                drawer_layout.closeDrawer(GravityCompat.START)
+            }
+            R.id.nav_servers -> {
+                fm.beginTransaction()
+                    .apply { replace(R.id.fragmentLayout, ServersListFragment()) }
+                    .addToBackStack(null)
+                    .commit()
+                drawer_layout.closeDrawer(GravityCompat.START)
+            }
+            R.id.nav_search -> {
                 val intent = Intent(this, SearchActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_gallery -> {
-                val intent = Intent(this, ServersActivity::class.java)
-                startActivity(intent)
-            }
-            R.id.nav_slideshow -> {
+            R.id.nav_add -> {
                 fm.beginTransaction()
-                    .apply { replace(R.id.fragmentLayout, HostingsFragment()) }
+                    .apply { replace(R.id.fragmentLayout, AddYourServerFragment())}
+                    .addToBackStack(null)
                     .commit()
-            }
-            R.id.nav_manage -> {
-                fm.beginTransaction()
-                    .apply { replace(R.id.fragmentLayout, GamesFragment()) }
-                    .commit()
+                drawer_layout.closeDrawer(GravityCompat.START)
             }
 
+            R.id.nav_csgo ->replaceServersListFragmentWithSortByGame(5)
+            R.id.nav_cs ->replaceServersListFragmentWithSortByGame(2)
+            R.id.nav_tf2 ->replaceServersListFragmentWithSortByGame(11)
+            R.id.nav_l4d2 ->replaceServersListFragmentWithSortByGame(10)
+            R.id.nav_css ->replaceServersListFragmentWithSortByGame(3)
+            R.id.nav_minecraft ->replaceServersListFragmentWithSortByGame(19)
+            R.id.nav_gta ->replaceServersListFragmentWithSortByGame(18)
+            R.id.nav_ts ->replaceServersListFragmentWithSortByGame(29)
+            R.id.nav_arma3 ->replaceServersListFragmentWithSortByGame(28)
+            R.id.nav_l4d ->replaceServersListFragmentWithSortByGame(9)
+            R.id.nav_gm ->replaceServersListFragmentWithSortByGame(12)
+            R.id.nav_mta ->replaceServersListFragmentWithSortByGame(24)
+            R.id.nav_bf4 ->replaceServersListFragmentWithSortByGame(23)
+            R.id.nav_rust ->replaceServersListFragmentWithSortByGame(14)
+            R.id.nav_se ->replaceServersListFragmentWithSortByGame(34)
+            R.id.nav_unturned ->replaceServersListFragmentWithSortByGame(31)
+            R.id.nav_dod ->replaceServersListFragmentWithSortByGame(6)
+            R.id.nav_7dod ->replaceServersListFragmentWithSortByGame(22)
+            R.id.nav_kf2 ->replaceServersListFragmentWithSortByGame(32)
+            R.id.nav_dayz ->replaceServersListFragmentWithSortByGame(27)
         }
-
-       // drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
 
@@ -123,10 +148,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 finish()
                 return true
             }
+            R.id.action_goToSite ->{
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://ip-games.ru/")))
+            }
+            R.id.action_about ->{
+                fm.beginTransaction()
+                    .apply { replace(R.id.fragmentLayout, AboutFragment.newInstance("","")) }
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
-
-
+    fun replaceServersListFragmentWithSortByGame(gameId:Int){
+        fm.beginTransaction()
+            .apply { replace(R.id.fragmentLayout, ServersListFragment(gameId))}
+            .addToBackStack(null)
+            .commit()
+        drawer_layout.closeDrawer(GravityCompat.START)
+    }
 }

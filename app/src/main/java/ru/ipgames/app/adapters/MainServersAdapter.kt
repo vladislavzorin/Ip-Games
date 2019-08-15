@@ -9,7 +9,6 @@ import ru.ipgames.app.databinding.ItemMainBinding
 import ru.ipgames.app.model.Servers
 import ru.ipgames.app.viewModels.ServersItemViewModel
 
-
 class MainServersAdapter: RecyclerView.Adapter<MainServersAdapter.ViewHolder>() {
 
     private lateinit var postList: List<Servers>
@@ -30,13 +29,6 @@ class MainServersAdapter: RecyclerView.Adapter<MainServersAdapter.ViewHolder>() 
     fun updatePostList(postList:List<Servers>){
         this.postList = postList
     }
-
-    override fun getItemViewType(position: Int): Int {
-        return if(::postList.isInitialized) {
-            if(postList.size-1 <= position) {1} else {0}
-        } else{1}
-    }
-
 
     fun getData():List<Servers> = postList
 

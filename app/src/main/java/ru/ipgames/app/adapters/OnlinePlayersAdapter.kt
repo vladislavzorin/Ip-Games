@@ -9,7 +9,6 @@ import ru.ipgames.app.databinding.ItemOnlinePlayersBinding
 import ru.ipgames.app.viewModels.OnlinePlayersViewModel
 import ru.ipgames.app.model.InfoAboutPlayer
 
-
 class OnlinePlayersAdapter: RecyclerView.Adapter<OnlinePlayersAdapter.ViewHolder>() {
 
     private lateinit var playersList: List<InfoAboutPlayer>

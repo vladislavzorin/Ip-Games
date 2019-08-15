@@ -23,7 +23,6 @@
         <activity
                 android:name=".activities.ServerInfoActivity"
                 android:screenOrientation="portrait" />
-        <activity android:name=".activities.ServersActivity" />
     </application>
 
 </manifest>

@@ -1,76 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
-            name="viewModel"
-            type="ru.ipgames.app.viewModels.PostViewModel" />
+                name="viewModel"
+                type="ru.ipgames.app.viewModels.PostViewModel" />
     </data>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:clickable="true"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:foregroundTint="@color/colorPrimary"
-        android:onClick="@{view -> viewModel.getServerInfo(view)}">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:foregroundTint="@color/colorPrimary"
+            android:onClick="@{view -> viewModel.getServerInfo(view)}">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dp"
-            android:layout_alignParentLeft="true"
-            app:mutableGameImage="@{viewModel.getGameID()}" />
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_alignParentLeft="true"
+                app:mutableGameImage="@{viewModel.getGameID()}" />
 
         <LinearLayout
-            android:id="@+id/nameLL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/custom"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@id/imageView"
-            >
-            <TextView
-                android:id="@+id/post_title"
+                android:id="@+id/nameLL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:textColor="@color/grey_900"
-                android:textStyle="bold"
-                style="@style/AppTheme.TextStyle"
-                app:mutableText="@{viewModel.getPostTitle()}"
-                />
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/custom"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/imageView"
+        >
             <TextView
-                android:id="@+id/post_body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:maxLines="1"
-                android:textSize="12sp"
-                style="@style/AppTheme.TextStyle"
-                app:mutableText="@{viewModel.getPostBody()}"
-                />
-
+                    android:id="@+id/post_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textColor="@color/grey_900"
+                    android:textStyle="bold"
+                    style="@style/AppTheme.TextStyle"
+                    app:mutableText="@{viewModel.getPostTitle()}"
+            />
+            <TextView
+                    android:id="@+id/post_body"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:maxLines="1"
+                    android:textSize="12sp"
+                    style="@style/AppTheme.TextStyle"
+                    app:mutableText="@{viewModel.getPostBody()}"
+            />
 
         </LinearLayout>
 
         <ru.ipgames.app.ui.CustomView
-            android:id="@+id/custom"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:layout_centerVertical="true"
-            app:mutableNow="@{viewModel.getPlayers()}" />
+                android:id="@+id/custom"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                app:mutableNow="@{viewModel.getPlayers()}" />
     </RelativeLayout>
 
 

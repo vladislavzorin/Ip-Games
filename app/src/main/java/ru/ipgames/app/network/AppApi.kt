@@ -8,8 +8,8 @@ import ru.ipgames.app.utils.KEY
 
 interface AppApi {
 
-    @GET("/method/servers_list_Android.php?key=$KEY&limit=50")
-    fun getPosts(@Query("page") page:Int): Observable<List<Server>>
+    @GET("/method/servers_list_Android.php?key=$KEY")
+    fun getServers(@Query("page") page:Int, @Query("limit") limit:Int): Observable<List<Server>>
 
     @GET("/method/servers_list_Android.php?key=$KEY&limit=10")
     fun getServersMain(@Query("page") page:Int): Observable<List<Servers>>

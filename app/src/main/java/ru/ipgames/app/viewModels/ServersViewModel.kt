@@ -3,13 +3,12 @@ package ru.ipgames.app.viewModels
 import android.arch.lifecycle.MutableLiveData
 import android.support.v7.util.DiffUtil
 import android.util.Log
-import android.view.View
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.ipgames.app.adapters.ServerAdapter
-import ru.ipgames.app.R
 import ru.ipgames.app.base.BaseViewModel
 import ru.ipgames.app.model.Server
 import ru.ipgames.app.model.ServerDao
@@ -26,140 +25,121 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
     @Inject
     lateinit var appApi: AppApi
 
-    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
-    val errorMessage: MutableLiveData<Int> = MutableLiveData()
-    val errorClickListener = View.OnClickListener { }
+    val loadingVisibility: MutableLiveData<Boolean> = MutableLiveData()
     var isFirstLoad:Boolean = true
-    val message:String = "Показать 1234"
     var isDBObservable:Boolean = false
-    private lateinit var subscription: Disposable
-
     var isLoading = MutableLiveData<Boolean>()
+    var limit:Int = 50
+    private var gameIdFilter:Int = 0
+    val mutablePage: MutableLiveData<Int> = MutableLiveData()
+    var size = 0
+    var isFilterMode:Boolean = false
+    private  var compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private val insertList: ArrayList<Server> = ArrayList()
+    private val updateList: ArrayList<Server> = ArrayList()
 
-    init{
+    fun initFirstSettings(){
         isLoading.value = true
-        loadServers(1)
+        loadingVisibility.value = true
+        mutablePage.value = 1
+        size = 0
+        isDBObservable = false
+        isFirstLoad = true
+        loadServers(mutablePage.value!!)
         initScrollSubscriber()
     }
 
-    fun initScrollSubscriber(){
-        obs.observeOn(AndroidSchedulers.mainThread())
+    private fun initScrollSubscriber(){
+        compositeDisposable.add(
+            obs.observeOn(AndroidSchedulers.mainThread())
                 .distinctUntilChanged()
-                .subscribe{res->loadServers(res)}
+                .subscribe{newPage->loadServers(newPage)
+                                    mutablePage.value = newPage
+                }
+        )
     }
 
-    fun getMes()=message
-
-
-    override fun onCleared() {
-        super.onCleared()
-        subscription.dispose()
-    }
-
-    private fun onRetrievePostListStart(){
-        loadingVisibility.value = View.VISIBLE
-        errorMessage.value = null
+    fun unSubscribeAll(){
+        compositeDisposable.dispose()
+        compositeDisposable = CompositeDisposable()
     }
 
     private fun onRetrievePostListFinish(){
-        loadingVisibility.value = View.GONE
+        loadingVisibility.value = false
     }
 
-    private fun onRetrievePostListSuccess(serverList:List<Server>){
-        Log.d("mLog"," -ОБНОВЛЕНИЕ-")
-       adapter.updatePostList(serverList)
-    }
+    fun loadServers(page:Int){
 
-    private fun onRetrievePostListError(){
-        Log.d("mLog","ERROR")
-        errorMessage.value = R.string.post_error
-    }
-
-    private fun loadServers(page:Int){
-
-        Log.d("mLog","-loadServers()-")
-        subscription = appApi.getPosts(page)
-                .subscribeOn(Schedulers.newThread())
+        compositeDisposable.add(
+            appApi.getServers(page,limit)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate { onRetrievePostListFinish()}
-                .doOnError{ ObservDB()}
+                .doOnTerminate {onRetrievePostListFinish()}
+                .doOnError{ObservDB()}
                 .retryWhen{ob -> ob.take(3).delay(15, TimeUnit.SECONDS)}
                 .repeatWhen {ob -> ob.delay(1 , TimeUnit.MINUTES)}
-                .subscribe({
-                                result -> onResult(result)
-                            },
-                            {
-                                oError()
-                            })
+                .subscribe({result -> onResult(result)},{oError()})
+        )
     }
 
-    fun  oError(){
+    private fun oError(){
         Log.d("mLog","-ERROR-")
     }
 
-    fun onResult(serverList:List<Server>)
+    private fun onResult(list:List<Server>)
     {
-        val su = Observable.fromCallable {serverDao.all}
-                .concatMap{
-                    dbPostList ->
-                    if(dbPostList.isEmpty()) {
-                        Log.d("mLog","isEmpty()")
-                        serverDao.insertAll(*serverList.toTypedArray())
-                    } else { if(isFirstLoad && !isDBObservable) {
-                        serverDao.deleteAll()
-                        isFirstLoad=false
-                        Log.d("mLog", "-УДАЛЕНИЕ-")
-                        ObservDB()
-                    }
+        var serverList = if(isFilterMode) onFilterList(list) else list
 
-                        val insertList: ArrayList<Server> = ArrayList<Server>()
-                        val updateList: ArrayList<Server> = ArrayList<Server>()
-                        Log.d("mLog", "else isEmpty()")
-                        for (i in 0..serverList.size-1) {
-                            if (serverDao.countID(serverList.toTypedArray().get(i).address) == 0) {
-                                insertList.add(serverList.toTypedArray().get(i))
+        compositeDisposable.add(
+            Observable.fromCallable {serverDao.all}
+                .concatMap{ dbPostList ->
+                    if(dbPostList.isEmpty()) {
+                        serverDao.insertAll(*serverList.toTypedArray())
+                        ObservDB()
+                    } else {
+                        if(isFirstLoad && !isDBObservable) {
+                            serverDao.deleteAll()
+                            isFirstLoad=false
+                            ObservDB()
+                        }
+
+                        insertList.clear()
+                        updateList.clear()
+
+                        for (i in 0 until serverList.size) {
+                            if (serverDao.countID(serverList.toTypedArray()[i].address) == 0) {
+                                insertList.add(serverList.toTypedArray()[i])
                             } else {
-                                updateList.add(serverList.toTypedArray().get(i))
+                                updateList.add(serverList.toTypedArray()[i])
                             }
                         }
 
-                        if (insertList.size > 0) {
-                            serverDao.insertAll(*insertList.toTypedArray())
-                            Log.d("mLog", "insertList.size=${insertList.size}")
-                        }
-                        if (updateList.size > 0) {
-                            serverDao.updateAll(*updateList.toTypedArray())
-                            Log.d("mLog", "updateList.size=${updateList.size}")
-                        }
-
-                        Log.d("mLog", "onResult is END")
-
+                        if (insertList.size > 0) serverDao.insertAll(*insertList.toTypedArray())
+                        if (updateList.size > 0) serverDao.updateAll(*updateList.toTypedArray())
                     }
-                    Observable.just(serverDao.all)
+                    Observable.just(null)
                 }
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ Log.d("mLog","-OKDB-")},{ Log.d("mLog","-ERRORDB-")})
+                .subscribe({},{})
+        )
     }
 
-    fun ObservDB(){
-        //реализовать однократную загрузку
+    private fun ObservDB(){
         if (!isDBObservable) {
             isDBObservable=true
-            Log.d("mLog", "ObservDB()")
-            val getAll: Disposable? = serverDao.all()
+            val getAll: Disposable = serverDao.all()
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ res -> updateRV(res)
-                        Log.d("mLog", "update ObservDB()")}, {
-                        Log.d("mLog", "-getAll ERROR-")
+                    .subscribe({ res -> updateRV(res) }, {
                         it.printStackTrace()
                     })
+
+            compositeDisposable.add(getAll)
         }
     }
 
-    fun updateRV(results:List<Server>)
+    private fun updateRV(results:List<Server>)
     {
-
         if (adapter.itemCount !=0) {
             val diffCallback = ServerDiffUtilCallBackCallback(adapter.getData(), results)
             val diffResult = DiffUtil.calculateDiff(diffCallback, false)
@@ -172,10 +152,20 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
         }
     }
 
-    fun onClickFilterButton(){
-        var list = adapter.getData().filter {server -> server.game_id == 5}
-        adapter.updatePostList(list)
-        adapter.notifyDataSetChanged()
+    private fun onFilterList(list:List<Server>):List<Server>{
+        var serverList = list.filter {server -> server.game_id == gameIdFilter}
+
+        if (size < 25){
+            mutablePage.value = mutablePage.value!! + 1
+            loadServers(mutablePage.value!!)
+            size += serverList.size
+        }
+
+        return serverList
     }
 
+    fun setFilterMode(isFilterMode:Boolean, gameIdForFilter:Int){
+        this.gameIdFilter = gameIdForFilter
+        this.isFilterMode = isFilterMode
+    }
 }

@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import ru.ipgames.app.model.InfoAboutPlayer
 
-
 class OnlinePlayersViewModel: ViewModel(){
     var name = MutableLiveData<String>()
     var score = MutableLiveData<String>()
@@ -16,4 +15,5 @@ class OnlinePlayersViewModel: ViewModel(){
         score.value = player.score.toString()
         time.value = "Время на сервере: ${player.time}"
     }
+
 }

@@ -44,6 +44,9 @@
                 android:id="@+id/post_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textColor="@color/grey_900"
+                android:textStyle="bold"
                 style="@style/AppTheme.TextStyle"
                 app:mutableText="@{viewModel.getPostTitle()}"
                 />
@@ -52,6 +55,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
+                android:maxLines="1"
+                android:textSize="12sp"
                 style="@style/AppTheme.TextStyle"
                 app:mutableText="@{viewModel.getPostBody()}"
                 />

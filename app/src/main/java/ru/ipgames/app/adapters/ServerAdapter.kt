@@ -10,27 +10,21 @@ import ru.ipgames.app.viewModels.PostViewModel
 import ru.ipgames.app.databinding.ItemPostBinding
 import ru.ipgames.app.model.Server
 
-
 class ServerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var serverList: List<Server>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        if (viewType == 0) {
+        return if (viewType == 0) {
             val binding: ItemPostBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_post, parent, false)
-            return ViewHolder(binding)
+            ViewHolder(binding)
         } else {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_loading, parent, false)
-            return LoadingHolder(view)
+            LoadingHolder(view)
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ViewHolder){
-            holder.bind(serverList[position])
-        } else{
-            if (holder is LoadingHolder)
-            holder.bind()
-        }
+        if (holder is ViewHolder) holder.bind(serverList[position])
     }
 
     override fun getItemCount(): Int {
@@ -43,8 +37,8 @@ class ServerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return if(::serverList.isInitialized) {
-            if(serverList.size-1 <= position) {1} else {0}
-        } else{1}
+                    if(serverList.size-1 <= position) {1} else {0}
+                } else{1}
     }
 
     fun getData():List<Server> = serverList
@@ -59,9 +53,5 @@ class ServerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class LoadingHolder(view: View): RecyclerView.ViewHolder(view)
-    {
-        fun bind(){
 
-        }
-    }
 }

@@ -87,7 +87,7 @@ class ServerInfoViewModel: BaseViewModel() {
         status.value = if(Info.result.status.toInt() == 1) "Работает" else "Недоступен"
         nowMax.value = "${Info.result.players.now}/${Info.result.players.max}"
         location.value = Info.result.country.name
-        ping.value = Info.result.ping.toString()
+        ping.value = Info.result.ping.toString()+"мс"
         urlMapImg.value = Info.result.map.img
     }
 

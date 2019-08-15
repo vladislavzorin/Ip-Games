@@ -11,8 +11,6 @@
             type="ru.ipgames.app.viewModels.AddYourServerViewModel" />
     </data>
 
-
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:background="@android:color/white"
             android:paddingLeft="@dimen/spacing_large"
             android:paddingRight="@dimen/spacing_large">
 
@@ -89,11 +88,11 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_label_title"
+                        android:id="@+id/choose_game"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_xlarge"
                         android:gravity="center_vertical"
-                        android:onClick="clickLabel"
+                        android:onClick="@{view -> viewModel.onTitleClick(view)}"
                         android:paddingLeft="@dimen/spacing_small"
                         android:paddingRight="@dimen/spacing_small"
                         android:text="Выберете игру"
@@ -101,8 +100,8 @@
                         android:textColor="@color/grey_90" />
 
                     <LinearLayout
-                        android:id="@+id/lyt_title"
-
+                        android:id="@+id/list"
+                        app:mutableVisibility="@{viewModel.isListVisible}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/spacing_large"
@@ -119,7 +118,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:minWidth="0dp"
-                            android:onClick="clickAction"
+                            android:onClick="@{view -> viewModel.onClick(view)}"
                             android:text="Далее"
                             android:theme="@style/Button.Primary" />
 
@@ -176,11 +175,11 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_label_description"
+                        android:id="@+id/edit_ip"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_xlarge"
                         android:gravity="center_vertical"
-                        android:onClick="clickLabel"
+                        android:onClick="@{view -> viewModel.onTitleClick(view)}"
                         android:paddingLeft="@dimen/spacing_small"
                         android:paddingRight="@dimen/spacing_small"
                         android:text="Введите IP сервера"
@@ -188,8 +187,8 @@
                         android:textColor="@color/grey_90" />
 
                     <LinearLayout
-                        android:id="@+id/lyt_description"
-
+                        android:id="@+id/ip"
+                        app:mutableVisibility="@{viewModel.isIpVisible}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/spacing_large"
@@ -208,7 +207,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:minWidth="0dp"
-                            android:onClick="clickAction"
+                            android:onClick="@{view -> viewModel.onClick(view)}"
                             android:text="Далее"
                             android:theme="@style/Button.Primary" />
 
@@ -269,11 +268,11 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_label_confirmation"
+                        android:id="@+id/add_server"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_xlarge"
                         android:gravity="center_vertical"
-                        android:onClick="clickLabel"
+                        android:onClick="@{view -> viewModel.onTitleClick(view)}"
                         android:paddingLeft="@dimen/spacing_small"
                         android:paddingRight="@dimen/spacing_small"
                         android:text="Добавить сервер"
@@ -281,8 +280,8 @@
                         android:textColor="@color/grey_90" />
 
                     <LinearLayout
-                        android:id="@+id/lyt_confirmation"
-
+                        android:id="@+id/confirm"
+                        app:mutableVisibility="@{viewModel.isConfirmVisible}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/spacing_large"
@@ -294,7 +293,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:minWidth="0dp"
-                            android:onClick="clickAction"
+                            android:onClick="@{view -> viewModel.onClick(view)}"
                             android:text="Добавить"
                             android:theme="@style/Button.Primary" />
 

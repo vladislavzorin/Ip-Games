@@ -271,6 +271,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
                                 android:minHeight="@dimen/spacing_xmlarge"
+                                android:maxLines="1"
                                 app:mutableText="@{viewModel.mapName}"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40" />
@@ -332,6 +333,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
                                 android:minHeight="@dimen/spacing_xmlarge"
+                                android:maxLength="13"
+                                android:maxLines="1"
                                 app:mutableText="@{viewModel.location}"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40" />
@@ -359,6 +362,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
                                 android:minHeight="@dimen/spacing_xmlarge"
+                                android:maxLines="1"
                                 app:mutableText="@{viewModel.ping}"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40" />
@@ -411,11 +415,9 @@
 
                     </LinearLayout>
 
-
-
                 </android.support.v7.widget.CardView>
 
-                <View
+                <View android:visibility="gone"
                     app:mutableVisibility="@{viewModel.isShowPlayers}"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/spacing_large" />
@@ -442,21 +444,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="?attr/actionBarSize"
                             android:gravity="center_vertical"
-                            android:text="Статистика посещений за 24 часа"
+                            android:text="Статистика посещений"
                             android:textAppearance="@style/TextAppearance.AppCompat.Title"
                             android:textColor="@color/grey_80" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:text="byajhvfwbz"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                            android:textColor="@color/grey_40" />
-
                         <com.jjoe64.graphview.GraphView
                             android:layout_width="match_parent"
-                            android:layout_height="200dip"
+                            android:layout_height="300dip"
                             android:id="@+id/graph" />
 
                     </LinearLayout>

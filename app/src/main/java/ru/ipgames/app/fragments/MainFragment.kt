@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ class MainFragment : Fragment() {
     }
 
     fun initBinding(){
+        Log.d("mLog","initBinding()")
         model  = ViewModelProviders.of(this, ViewModelFactory(activity as AppCompatActivity)).get(MainFragmentViewModel::class.java)
         model.activityFragment = activity as FragmentActivity
 
@@ -46,6 +48,7 @@ class MainFragment : Fragment() {
             postList.layoutManager = LinearLayoutManager(view!!.context, LinearLayoutManager.VERTICAL, false)
             hostingList.layoutManager = LinearLayoutManager(view!!.context, LinearLayoutManager.VERTICAL, false)
             gamesList.layoutManager = LinearLayoutManager(view!!.context, LinearLayoutManager.VERTICAL, false)
+            model.loadServers2(1)
             viewModel = model
         }
         initActionBar()
@@ -61,6 +64,15 @@ class MainFragment : Fragment() {
         (activity as AppCompatActivity).maintoolbar.layoutParams = layoutParams
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d("ServersViewModel","onDestroyView()")
+        DataBindingUtil.getBinding<MainFragmentBinding>(view!!)!!.run{
+            model.unSubscribeAll()
+            viewModel = model
+        }
+    }
 
 
 }

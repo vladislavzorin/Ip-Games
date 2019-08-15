@@ -1,6 +1,5 @@
 package ru.ipgames.app.utils
 
-import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.databinding.BindingAdapter
@@ -93,7 +92,7 @@ fun setMaxHeight(view: LinearLayout, size:MutableLiveData<Int>) {
 
 
 @BindingAdapter("colorCard")
-fun setcolorCard(view: CardView, position:MutableLiveData<Int>) {
+fun setColorCard(view: CardView, position:MutableLiveData<Int>) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
     if (parentActivity != null) {
         position.observe(parentActivity, Observer { value ->
@@ -103,4 +102,6 @@ fun setcolorCard(view: CardView, position:MutableLiveData<Int>) {
         })
     }
 }
+
+
 

@@ -1,24 +1,25 @@
 package ru.ipgames.app.viewModels
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
 import android.content.Intent
 import android.support.v4.app.FragmentActivity
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.util.DiffUtil
 import android.util.Log
 import android.view.View
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import ru.ipgames.app.activities.ServersActivity
 import ru.ipgames.app.adapters.HostingAndGameAdapter
 import ru.ipgames.app.adapters.MainServersAdapter
 import ru.ipgames.app.R
 import ru.ipgames.app.base.BaseViewModel
+import ru.ipgames.app.fragments.AddYourServerFragment
 import ru.ipgames.app.fragments.GamesFragment
 import ru.ipgames.app.fragments.HostingsFragment
-import ru.ipgames.app.fragments.MainFragment
+import ru.ipgames.app.fragments.ServersListFragment
 import ru.ipgames.app.model.InfoAboutGame
 import ru.ipgames.app.model.ListHostings
 import ru.ipgames.app.model.Servers
@@ -52,17 +53,18 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
     val progressMainCard = MutableLiveData<Int>()
 
     private lateinit var subscription: Disposable
-    public  lateinit var activityFragment:FragmentActivity
+    private  var compositeDisposable: CompositeDisposable = CompositeDisposable()
+    lateinit var activityFragment:FragmentActivity
 
     init{
+        Log.d("mLog","init")
         loadListGames()
         loadListHosting()
-        loadServers(1)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        subscription.dispose()
+    fun unSubscribeAll(){
+        compositeDisposable.dispose()
+        compositeDisposable = CompositeDisposable()
     }
 
     private fun onRetrievePostListStart(){
@@ -102,6 +104,26 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
                             })
     }
 
+    fun loadServers2(page:Int){
+        Log.d("mLog","MainFragmentViewModel -loadServers2()-")
+        compositeDisposable.add(
+            appApi.getServersMain(page)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnTerminate{onRetrievePostListFinish()}
+            .doOnError  {ObservDB()}
+            .retryWhen  {ob -> ob.take(3).delay(15,TimeUnit.SECONDS)}
+            .repeatWhen {ob -> ob.delay(1 , TimeUnit.MINUTES)}
+            .subscribe({    result -> onResult(result)
+                Log.d("mLog","MainFragmentViewModel subscribe")
+                loadingMainCard.value = View.VISIBLE
+                progressMainCard.value = View.GONE
+            },
+                {
+                    oError()
+                })
+        )
+    }
 
 
     fun  oError(){
@@ -116,6 +138,7 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
                     if(dbPostList.isEmpty()) {
                         Log.d("mLog","isEmpty()")
                         postDao.insertAll(*postList.toTypedArray())
+                        ObservDB()
                     } else { if(isFirstLoad && !isDBObservable) {
                                                 postDao.deleteAll()
                                                 isFirstLoad=false
@@ -180,23 +203,29 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
     }
 
     fun onClick_getServersActivity(view:View){
-        val intent = Intent(view.context, ServersActivity::class.java)
-        view.context.startActivity(intent)
+        activityFragment.supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.fragmentLayout, ServersListFragment())
+            .commit()
     }
-
 
     fun onClick_getAddYourServerActivity(view:View){
-      //  val intent = Intent(view.context,AddYourServerActivity::class.java)
-      //  view.context.startActivity(intent)
+        activityFragment.supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.fragmentLayout, AddYourServerFragment())
+            .commit()
     }
-
 
     fun getHostingAdapter():HostingAndGameAdapter= hostAdapter
 
+    @SuppressLint("CheckResult")
     fun loadListHosting(){
         appApi.getAllHosting()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen  {ob -> ob.take(3).delay(10,TimeUnit.SECONDS)}
                 .subscribe({result -> onResultOfHostings(result)
                     loadingHostingCard.value = View.VISIBLE
                     progressHostingCard.value = View.GONE},
@@ -212,6 +241,7 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
         appApi.getAllGames()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .retryWhen  {ob -> ob.take(3).delay(10,TimeUnit.SECONDS)}
                 .subscribe({result -> onResultOfGames(result.result)
                     loadingGameCard.value = View.VISIBLE
                     progressGameCard.value = View.GONE},
