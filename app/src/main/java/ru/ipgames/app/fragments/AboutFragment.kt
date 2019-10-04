@@ -1,6 +1,7 @@
 package ru.ipgames.app.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
@@ -13,8 +14,10 @@ import kotlinx.android.synthetic.main.fragment_about.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 import ru.ipgames.app.R
+import ru.ipgames.app.utils.GITHUB_URL
 import ru.ipgames.app.utils.LAST_UPDATE
 import ru.ipgames.app.utils.VERSION
+import ru.ipgames.app.utils.VK_AUTOR_URL
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -37,6 +40,8 @@ class AboutFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         version.text = "$VERSION"
         update.text = "$LAST_UPDATE"
+        vk_layout.setOnClickListener {startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$VK_AUTOR_URL")))}
+        github_layout.setOnClickListener {startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_URL")))}
         initActionBar()
     }
 

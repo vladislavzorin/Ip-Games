@@ -19,5 +19,4 @@ class ServerDiffUtilCallBackCallback(
         return oldList[oldItemPosition].players.now == newList[newItemPosition].players.now &&
                 oldList[oldItemPosition].map.name == newList[newItemPosition].map.name
     }
-
 }

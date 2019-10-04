@@ -20,6 +20,7 @@ import ru.ipgames.app.R
 import ru.ipgames.app.databinding.ActivityMainBinding
 import ru.ipgames.app.fragments.*
 import ru.ipgames.app.utils.Tools
+import ru.ipgames.app.utils.URL
 import ru.ipgames.app.viewModels.MainFragmentViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener ,AboutFragment.OnFragmentInteractionListener{
@@ -149,7 +150,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 return true
             }
             R.id.action_goToSite ->{
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://ip-games.ru/")))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$URL")))
             }
             R.id.action_about ->{
                 fm.beginTransaction()

@@ -90,7 +90,6 @@ fun setMaxHeight(view: LinearLayout, size:MutableLiveData<Int>) {
         }
 }
 
-
 @BindingAdapter("colorCard")
 fun setColorCard(view: CardView, position:MutableLiveData<Int>) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
@@ -102,6 +101,3 @@ fun setColorCard(view: CardView, position:MutableLiveData<Int>) {
         })
     }
 }
-
-
-

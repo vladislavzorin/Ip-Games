@@ -14,12 +14,13 @@ import ru.ipgames.app.model.database.AppDatabaseMainServers
 class ViewModelFactory(private val activity: AppCompatActivity): ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainFragmentViewModel::class.java)) {
+            // заменить на вызов из репозитория или же убрать фабрику на совсем
             val db = Room.databaseBuilder(activity.applicationContext, AppDatabaseMainServers::class.java, "servers").build()
 
             @Suppress("UNCHECKED_CAST")
             return MainFragmentViewModel(postDao = db.serversDao()) as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class")
+        throw IllegalArgumentException("Unknown ViewModel class") as Throwable
 
     }
 }

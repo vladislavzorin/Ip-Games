@@ -3,7 +3,6 @@ package ru.ipgames.app.utils
 import android.support.v7.util.DiffUtil
 import ru.ipgames.app.model.Servers
 
-
 class MainServersDiffUtilCallBackCallback(
     private val oldList: List<Servers>,
     private val newList: List<Servers>
@@ -20,5 +19,4 @@ class MainServersDiffUtilCallBackCallback(
         return oldList[oldItemPosition].players.now == newList[newItemPosition].players.now &&
                 oldList[oldItemPosition].map.name == newList[newItemPosition].map.name
     }
-
 }

@@ -20,7 +20,7 @@ interface ViewModelInjector{
 
     fun inject(serverInfoViewModel: ServerInfoViewModel)
 
-    //fun inject(addYourServerViewModel: AddYourServerViewModel)
+    fun inject(addYourServerViewModel: AddYourServerViewModel)
 
     fun inject(searchActivity: SearchActivity)
 

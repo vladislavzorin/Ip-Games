@@ -5,6 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.ipgames.app.model.*
 import ru.ipgames.app.utils.KEY
+import ru.ipgames.app.utils.KEY_ADDSERVER
 
 interface AppApi {
 
@@ -31,5 +32,12 @@ interface AppApi {
 
     @GET("/method/games.all?key=$KEY")
     fun getAllGames():Observable<Games>
+
+    @GET("/method/hosting.serverAdd?key=$KEY_ADDSERVER")
+    fun addServer(
+        @Query("server_ip") ip: String,
+        @Query("server_game") gameId: String,
+        @Query("qport") port:Int
+    ):Observable<AddServerResponse>
 
 }

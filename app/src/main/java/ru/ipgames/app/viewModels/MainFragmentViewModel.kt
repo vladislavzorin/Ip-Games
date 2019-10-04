@@ -2,8 +2,11 @@ package ru.ipgames.app.viewModels
 
 import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.support.v4.app.FragmentActivity
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.util.DiffUtil
 import android.util.Log
 import android.view.View
@@ -26,6 +29,8 @@ import ru.ipgames.app.model.Servers
 import ru.ipgames.app.model.ServersDao
 import ru.ipgames.app.network.AppApi
 import ru.ipgames.app.utils.MainServersDiffUtilCallBackCallback
+import ru.ipgames.app.utils.TWITTER_URL
+import ru.ipgames.app.utils.VK_GROUP_URL
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -52,12 +57,12 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
     val loadingMainCard = MutableLiveData<Int>()
     val progressMainCard = MutableLiveData<Int>()
 
+
     private lateinit var subscription: Disposable
     private  var compositeDisposable: CompositeDisposable = CompositeDisposable()
     lateinit var activityFragment:FragmentActivity
 
     init{
-        Log.d("mLog","init")
         loadListGames()
         loadListHosting()
     }
@@ -266,6 +271,14 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
             .addToBackStack(null)
             .replace(R.id.fragmentLayout, HostingsFragment())
             .commit()
+    }
+
+    fun  onClick_socialIcon_Twitter(view:View){
+        startActivity(this.activityFragment,Intent(Intent.ACTION_VIEW, Uri.parse("$TWITTER_URL")),null)
+    }
+
+    fun  onClick_socialIcon_Vk(view:View){
+        startActivity(view.context,Intent(Intent.ACTION_VIEW, Uri.parse("$VK_GROUP_URL")),null)
     }
 
 }

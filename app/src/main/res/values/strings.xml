@@ -44,4 +44,36 @@
         <item>Insurgency: Modern Infantry Combat</item>
     </string-array>
 
+    <string-array name="gamelistID">
+        <item>csgo</item>
+        <item>cs16</item>
+        <item>tf2</item>
+        <item>l4d2</item>
+        <item>css</item>
+        <item>minecraft</item>
+        <item>samp</item>
+        <item>teamspeak3</item>
+        <item>arma3</item>
+        <item>l4d</item>
+        <item>gm</item>
+        <item>mta</item>
+        <item>bf4</item>
+        <item>rust</item>
+        <item>space-engineers</item>
+        <item>unturned</item>
+        <item>dods</item>
+        <item>7daystodie</item>
+        <item>killingfloor2</item>
+        <item>hl</item>
+        <item>nmrih</item>
+        <item>dayz</item>
+        <item>hl2</item>
+        <item>ark</item>
+        <item>zps</item>
+        <item>cod4</item>
+        <item>cz</item>
+        <item>ins2</item>
+        <item>hurtworld</item>
+        <item>ins</item>
+    </string-array>
 </resources>
