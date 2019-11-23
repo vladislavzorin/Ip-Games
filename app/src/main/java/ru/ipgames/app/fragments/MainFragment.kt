@@ -39,8 +39,7 @@ class MainFragment : Fragment() {
         initBinding()
     }
 
-    fun initBinding(){
-        Log.d("mLog","initBinding()")
+    private fun initBinding(){
         model  = ViewModelProviders.of(this, ViewModelFactory(activity as AppCompatActivity)).get(MainFragmentViewModel::class.java)
         model.activityFragment = activity as FragmentActivity
 
@@ -54,10 +53,10 @@ class MainFragment : Fragment() {
         initActionBar()
     }
 
-    fun initActionBar(){
+    private fun initActionBar(){
         (activity as AppCompatActivity).supportActionBar!!.title = "Главная"
 
-        var layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
+        val layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
                                                         .maintoolbar
                                                         .layoutParams as AppBarLayout.LayoutParams
         layoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
@@ -67,11 +66,12 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("ServersViewModel","onDestroyView()")
-        DataBindingUtil.getBinding<MainFragmentBinding>(view!!)!!.run{
+      /*  DataBindingUtil.getBinding<MainFragmentBinding>(view!!)!!.run{
             model.unSubscribeAll()
             viewModel = model
         }
+        */
+        model.unSubscribeAll()
     }
 
 

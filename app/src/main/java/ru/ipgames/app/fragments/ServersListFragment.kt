@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,8 +61,8 @@ class ServersListFragment() : Fragment() {
             serversViewModel.mutablePage.observe(this@ServersListFragment,Observer{ page = it?:1 })
             serversViewModel.setFilterMode(isFilterMode,gameId)
             serversViewModel.initFirstSettings()
-
             viewModel = serversViewModel
+
         }
         initActionBar()
     }
@@ -106,10 +105,12 @@ class ServersListFragment() : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        DataBindingUtil.getBinding<ServersListFragmentBinding>(view!!)!!.run{
+      /*  DataBindingUtil.getBinding<ServersListFragmentBinding>(view!!)!!.run{
             serversViewModel.unSubscribeAll()
             viewModel = serversViewModel
         }
+       */
+        serversViewModel.unSubscribeAll()
     }
 
 }

@@ -5,19 +5,19 @@
 
     <data>
         <variable
-                name="viewModel"
-                type="ru.ipgames.app.viewModels.PostViewModel" />
+                name="server"
+                type="ru.ipgames.app.model.Server" />
     </data>
 
     <RelativeLayout
+            android:id="@+id/root_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:foregroundTint="@color/colorPrimary"
-            android:onClick="@{view -> viewModel.getServerInfo(view)}">
+            android:foregroundTint="@color/colorPrimary">
 
         <ImageView
                 android:id="@+id/imageView"
@@ -26,7 +26,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
                 android:layout_alignParentLeft="true"
-                app:mutableGameImage="@{viewModel.getGameID()}" />
+                app:gameImage="@{server.game_id}"
+        />
 
         <LinearLayout
                 android:id="@+id/nameLL"
@@ -47,7 +48,7 @@
                     android:textColor="@color/grey_900"
                     android:textStyle="bold"
                     style="@style/AppTheme.TextStyle"
-                    app:mutableText="@{viewModel.getPostTitle()}"
+                    android:text="@{server.name}"
             />
             <TextView
                     android:id="@+id/post_body"
@@ -57,7 +58,7 @@
                     android:maxLines="1"
                     android:textSize="12sp"
                     style="@style/AppTheme.TextStyle"
-                    app:mutableText="@{viewModel.getPostBody()}"
+                    android:text="@{server.map.name}"
             />
 
         </LinearLayout>
@@ -69,7 +70,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
                 android:layout_centerVertical="true"
-                app:mutableNow="@{viewModel.getPlayers()}" />
+                app:now="@{server.players}"/>
     </RelativeLayout>
 
 

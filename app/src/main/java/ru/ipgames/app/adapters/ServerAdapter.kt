@@ -1,12 +1,13 @@
 package ru.ipgames.app.adapters
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.ipgames.app.R
-import ru.ipgames.app.viewModels.PostViewModel
+import ru.ipgames.app.activities.ServerInfoActivity
 import ru.ipgames.app.databinding.ItemPostBinding
 import ru.ipgames.app.model.Server
 
@@ -44,11 +45,14 @@ class ServerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun getData():List<Server> = serverList
 
     class ViewHolder(private val binding: ItemPostBinding):RecyclerView.ViewHolder(binding.root){
-        private val viewModel = PostViewModel()
-
         fun bind(server:Server){
-            viewModel.bind(server)
-            binding.viewModel = viewModel
+            binding.server = server
+            binding.rootItem.setOnClickListener { view->
+                val intent = Intent(view.context, ServerInfoActivity::class.java)
+                intent.putExtra("server_ip",server.address)
+                view.context.startActivity(intent)
+
+            }
         }
     }
 

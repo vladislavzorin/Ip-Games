@@ -6,12 +6,9 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat.getColor
-import android.support.v4.content.ContextCompat.getSystemService
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
@@ -55,7 +52,7 @@ class AddYourServerFragment : Fragment() {
         initBinding()
     }
 
-    fun initLists(){
+    private fun initLists(){
         viewList.add(list)
         viewList.add(ip)
         viewList.add(confirm)
@@ -69,7 +66,7 @@ class AddYourServerFragment : Fragment() {
         stepList.add(step_add)
     }
 
-    fun initBinding(){
+    private fun initBinding(){
         viewModelFragment  = ViewModelProviders.of(this).get(AddYourServerViewModel::class.java)
         DataBindingUtil.getBinding<AddYourServerFragmentBinding>(view!!)!!.run{
             initComponent(viewModelFragment)
@@ -78,10 +75,10 @@ class AddYourServerFragment : Fragment() {
         initActionBar()
     }
 
-    fun initActionBar(){
+    private fun initActionBar(){
         (activity as AppCompatActivity).supportActionBar!!.title = "Добавить свой сервер"
 
-        var layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
+        val layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
                                                         .maintoolbar
                                                         .layoutParams as AppBarLayout.LayoutParams
         layoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
@@ -89,7 +86,7 @@ class AddYourServerFragment : Fragment() {
     }
 
 
-    fun collapseAndContinue(number:Int){
+    private fun collapseAndContinue(number:Int){
         ViewAnimation.collapse(this.viewList[number])
         setCheckedStep(number)
         val nextNumber = number + 1
@@ -98,7 +95,7 @@ class AddYourServerFragment : Fragment() {
         ViewAnimation.expand(viewList[nextNumber])
     }
 
-    fun initComponent(viewModel: AddYourServerViewModel){
+    private fun initComponent(viewModel: AddYourServerViewModel){
         val array = context!!.resources.getStringArray(R.array.gamelistID)
         viewModel.numberOfClick.observe(this, Observer{number ->
             /** первые 2 скрываем при нажатии на кнопку, на 3й передаем данные из первых двух **/
@@ -137,21 +134,21 @@ class AddYourServerFragment : Fragment() {
         })
     }
 
-    fun collapseAll(){
+    private fun collapseAll(){
         for (v in viewList) {
             ViewAnimation.collapse(v)
         }
     }
 
-    fun hideKeyboard(){
-        var view = this.view
+    private fun hideKeyboard(){
+        val view = this.view
         if (view != null) {
-            var imm: InputMethodManager = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm: InputMethodManager = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 
-    fun setCheckedStep(index:Int){
+    private fun setCheckedStep(index:Int){
         val relative:RelativeLayout = stepList[index]
         relative.background.setColorFilter(resources.getColor(R.color.green_700), PorterDuff.Mode.SRC_IN)
         relative.removeAllViews()
@@ -162,7 +159,7 @@ class AddYourServerFragment : Fragment() {
         relative.addView(img)
     }
 
-    fun setUnCheckedStep2(){
+    private fun setUnCheckedStep2(){
         val relative:RelativeLayout = stepList[2]
         relative.background.setColorFilter(resources.getColor(R.color.red_600), PorterDuff.Mode.SRC_IN)
         relative.removeAllViews()

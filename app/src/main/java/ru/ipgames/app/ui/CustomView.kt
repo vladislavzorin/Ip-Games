@@ -11,7 +11,7 @@ import ru.ipgames.app.R
 import ru.ipgames.app.model.Players
 
 class CustomView(context: Context,attr:AttributeSet) : View(context,attr){
-    private val paint= Paint()
+    private val paint = Paint()
     private val rect= RectF()
     private var players: Players = Players(0,0)
     private var koff:Float=0.0F

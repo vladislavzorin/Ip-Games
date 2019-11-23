@@ -12,33 +12,21 @@ import ru.ipgames.app.adapters.OnlinePlayersAdapter
 import ru.ipgames.app.adapters.ServerAdapter
 import ru.ipgames.app.network.AppApi
 import ru.ipgames.app.utils.BASE_URL
+import javax.inject.Singleton
 
-/**
- * Module which provides all required dependencies about network
- */
+
 @Module
-// Safe here as we are dealing with a Dagger 2 module
 @Suppress("unused")
 object NetworkModule {
-    /**
-     * Provides the Server service implementation.
-     * @param retrofit the Retrofit object used to instantiate the service
-     * @return the Server service implementation.
-     */
+
     @Provides
-    @Reusable
-    @JvmStatic
+    @Singleton
     internal fun providePostApi(retrofit: Retrofit): AppApi {
         return retrofit.create(AppApi::class.java)
     }
 
-    /**
-     * Provides the Retrofit object.
-     * @return the Retrofit object
-     */
     @Provides
-    @Reusable
-    @JvmStatic
+    @Singleton
     internal fun provideRetrofitInterface(): Retrofit {
         return Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -49,23 +37,20 @@ object NetworkModule {
 
 
     @Provides
-    @Reusable
-    @JvmStatic
+    @Singleton
     internal fun provideAdapter(): ServerAdapter {
         return ServerAdapter()
     }
 
 
     @Provides
-    @Reusable
-    @JvmStatic
+    @Singleton
     internal fun provideMainAdapter(): MainServersAdapter {
         return MainServersAdapter()
     }
 
     @Provides
-    @Reusable
-    @JvmStatic
+    @Singleton
     internal fun provideOnlinePlayersAdapter(): OnlinePlayersAdapter {
         return OnlinePlayersAdapter()
     }

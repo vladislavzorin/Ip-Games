@@ -48,6 +48,14 @@ fun setMutableNow(view: CustomView, now: MutableLiveData<Players>?) {
     }
 }
 
+@BindingAdapter("now")
+fun setNow(view: CustomView, now: Players?) {
+    val parentActivity:AppCompatActivity? = view.getParentActivity()
+    if(parentActivity != null && now != null) {
+       view.setPlayer(now?:Players(0,0))
+    }
+}
+
 @BindingAdapter("mutableGameImage")
 fun setMutableGameImage(view: ImageView, text: MutableLiveData<String>?) {
     val parentActivity: AppCompatActivity? = view.getParentActivity()
@@ -59,6 +67,18 @@ fun setMutableGameImage(view: ImageView, text: MutableLiveData<String>?) {
                     .error(R.drawable.ic_videogame_asset)
                     .into(view)
         })
+    }
+}
+
+@BindingAdapter("gameImage")
+fun setGameImage(view: ImageView, text: Int?) {
+    val parentActivity: AppCompatActivity? = view.getParentActivity()
+    if (parentActivity != null && text != null) {
+            Picasso.get()
+                .load("file:///android_asset/${text.toString()}.png")
+                .resize(64, 64)
+                .error(R.drawable.ic_videogame_asset)
+                .into(view)
     }
 }
 

@@ -68,7 +68,7 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
         loadingVisibility.value = false
     }
 
-    fun loadServers(page:Int){
+    private fun loadServers(page:Int){
 
         compositeDisposable.add(
             appApi.getServers(page,limit)
@@ -88,7 +88,7 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
 
     private fun onResult(list:List<Server>)
     {
-        var serverList = if(isFilterMode) onFilterList(list) else list
+        val serverList = if(isFilterMode) onFilterList(list) else list
 
         compositeDisposable.add(
             Observable.fromCallable {serverDao.all}
@@ -153,7 +153,7 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
     }
 
     private fun onFilterList(list:List<Server>):List<Server>{
-        var serverList = list.filter {server -> server.game_id == gameIdFilter}
+        val serverList = list.filter {server -> server.game_id == gameIdFilter}
 
         if (size < 25){
             mutablePage.value = mutablePage.value!! + 1

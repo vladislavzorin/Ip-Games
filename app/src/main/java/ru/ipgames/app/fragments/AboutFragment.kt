@@ -88,7 +88,7 @@ class AboutFragment : Fragment() {
     fun initActionBar(){
         (activity as AppCompatActivity).supportActionBar!!.title = "О приложении"
 
-        var layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
+        val layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
             .maintoolbar
             .layoutParams as AppBarLayout.LayoutParams
         layoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP

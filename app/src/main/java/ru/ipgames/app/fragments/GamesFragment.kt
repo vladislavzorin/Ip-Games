@@ -41,10 +41,10 @@ class GamesFragment : Fragment() {
         initActionBar()
     }
 
-    fun initActionBar(){
+    private fun initActionBar(){
         (activity as AppCompatActivity).supportActionBar!!.title = "Игры"
 
-        var layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
+        val layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
                                                         .maintoolbar
                                                         .layoutParams as AppBarLayout.LayoutParams
         layoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
