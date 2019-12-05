@@ -27,7 +27,7 @@
     <item android:title="@string/drawer_titleGame">
         <menu>
             <item android:id="@+id/nav_csgo"
-                  android:title="Counter-Strike: Global Offensive"/>
+                  android:title="CS:GO"/>
 
             <item android:id="@+id/nav_cs"
                   android:title="Counter-Strike 1.6"/>

@@ -1,19 +1,20 @@
 package ru.ipgames.app.viewModels
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.MutableLiveData
-import android.content.Context
+import android.app.Dialog
+import androidx.lifecycle.MutableLiveData
 import android.content.Intent
 import android.net.Uri
-import android.support.v4.app.FragmentActivity
-import android.support.v4.content.ContextCompat.startActivity
-import android.support.v7.util.DiffUtil
+import androidx.fragment.app.FragmentActivity
+import androidx.core.content.ContextCompat.startActivity
+import androidx.recyclerview.widget.DiffUtil
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import ru.ipgames.app.adapters.HostingAndGameAdapter
 import ru.ipgames.app.adapters.MainServersAdapter
@@ -28,6 +29,7 @@ import ru.ipgames.app.model.ListHostings
 import ru.ipgames.app.model.Servers
 import ru.ipgames.app.model.ServersDao
 import ru.ipgames.app.network.AppApi
+import ru.ipgames.app.utils.BUY_URL
 import ru.ipgames.app.utils.MainServersDiffUtilCallBackCallback
 import ru.ipgames.app.utils.TWITTER_URL
 import ru.ipgames.app.utils.VK_GROUP_URL
@@ -45,7 +47,6 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
     val gameAdapter:HostingAndGameAdapter = HostingAndGameAdapter()
 
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
-    val errorMessage:MutableLiveData<Int> = MutableLiveData()
     val errorClickListener = View.OnClickListener { }
     var isFirstLoad:Boolean = true
     var isDBObservable:Boolean = false
@@ -57,10 +58,8 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
     val loadingMainCard = MutableLiveData<Int>()
     val progressMainCard = MutableLiveData<Int>()
 
-
-    private lateinit var subscription: Disposable
     private  var compositeDisposable: CompositeDisposable = CompositeDisposable()
-    lateinit var activityFragment:FragmentActivity
+    lateinit var activityFragment: FragmentActivity
 
     init{
         loadListGames()
@@ -72,45 +71,11 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
         compositeDisposable = CompositeDisposable()
     }
 
-    private fun onRetrievePostListStart(){
-        loadingVisibility.value = View.VISIBLE
-        errorMessage.value = null
-    }
-
     private fun onRetrievePostListFinish(){
         loadingVisibility.value = View.GONE
     }
 
-    private fun onRetrievePostListSuccess(postList:List<Servers>){
-        Log.d("mLog"," -ОБНОВЛЕНИЕ-")
-        postListAdapter.updatePostList(postList)
-    }
-
-    private fun onRetrievePostListError(){
-        Log.d("mLog","ERROR")
-        errorMessage.value = R.string.post_error
-    }
-
-    private fun loadServers(page:Int){
-        Log.d("mLog","-loadServers()-")
-        subscription = appApi.getServersMain(page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnTerminate{onRetrievePostListFinish()}
-                .doOnError  {ObservDB()}
-                .retryWhen  {ob -> ob.take(3).delay(15,TimeUnit.SECONDS)}
-                .repeatWhen {ob -> ob.delay(1 , TimeUnit.MINUTES)}
-                .subscribe({    result -> onResult(result)
-                                loadingMainCard.value = View.VISIBLE
-                                progressMainCard.value = View.GONE
-                            },
-                            {
-                                oError()
-                            })
-    }
-
     fun loadServers2(page:Int){
-        Log.d("mLog","MainFragmentViewModel -loadServers2()-")
         compositeDisposable.add(
             appApi.getServersMain(page)
             .subscribeOn(Schedulers.io())
@@ -120,16 +85,14 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
             .retryWhen  {ob -> ob.take(3).delay(15,TimeUnit.SECONDS)}
             .repeatWhen {ob -> ob.delay(1 , TimeUnit.MINUTES)}
             .subscribe({    result -> onResult(result)
-                Log.d("mLog","MainFragmentViewModel subscribe")
-                loadingMainCard.value = View.VISIBLE
-                progressMainCard.value = View.GONE
-            },
-                {
-                    oError()
-                })
+                            loadingMainCard.value = View.VISIBLE
+                            progressMainCard.value = View.GONE
+                        },
+                        {
+                            oError()
+            })
         )
     }
-
 
     fun  oError(){
         Log.d("mLog","-ERROR-")
@@ -137,39 +100,35 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
 
     fun onResult(postList:List<Servers>)
     {
-        val su = Observable.fromCallable {postDao.all}
+        compositeDisposable.add(
+        Observable.fromCallable {postDao.all}
                 .concatMap{
                     dbPostList ->
                     if(dbPostList.isEmpty()) {
-                        Log.d("mLog","isEmpty()")
                         postDao.insertAll(*postList.toTypedArray())
                         ObservDB()
                     } else { if(isFirstLoad && !isDBObservable) {
-                                                postDao.deleteAll()
-                                                isFirstLoad=false
-                                                Log.d("mLog", "-УДАЛЕНИЕ-")
-                                                ObservDB()
-                                             }
+                                                                    postDao.deleteAll()
+                                                                    isFirstLoad=false
+                                                                    ObservDB()
+                                                                }
 
                             val insertList: ArrayList<Servers> = ArrayList()
                             val updateList: ArrayList<Servers> = ArrayList()
-                            Log.d("mLog", "else isEmpty()")
-
                             for (i in 0..9) {
-                                if (postDao.countID(postList.toTypedArray().get(i).address) == 0) {
-                                    insertList.add(postList.toTypedArray().get(i))
+                                if (postDao.countID(postList.toTypedArray()[i].address) == 0) {
+                                    insertList.add(postList.toTypedArray()[i])
                                 } else {
-                                    updateList.add(postList.toTypedArray().get(i))
+                                    updateList.add(postList.toTypedArray()[i])
                                 }
                             }
 
                             if (insertList.size > 0) {
                                 postDao.insertAll(*insertList.toTypedArray())
-                                Log.d("mLog", "insertList.size=${insertList.size}")
                             }
+
                             if (updateList.size > 0) {
                                 postDao.updateAll(*updateList.toTypedArray())
-                                Log.d("mLog", "updateList.size=${updateList.size}")
                             }
 
                     }
@@ -177,32 +136,33 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({Log.d("mLog","-OKDB-")},{Log.d("mLog","-ERRORDB-")})
+                .subscribe({},{})
+        )
     }
 
     fun ObservDB(){
         if (!isDBObservable) {
             isDBObservable=true
-            Log.d("mLog", "ObservDB()")
-            val getAll: Disposable? = postDao.all()
+            compositeDisposable.add(
+                postDao.all()
                     .take(10)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ res -> updateRV(res) }, {
-                        Log.d("mLog", "-getAll ERROR-")
                         it.printStackTrace()
                     })
+            )
         }
     }
 
     fun updateRV(results:List<Servers>)
     {
-        if (postListAdapter.getItemCount()!=0) {
+        if (postListAdapter.itemCount !=0) {
             val diffCallback = MainServersDiffUtilCallBackCallback(postListAdapter.getData(), results)
             val diffResult = DiffUtil.calculateDiff(diffCallback, false)
             postListAdapter.updatePostList(results)
             diffResult.dispatchUpdatesTo(postListAdapter)
         } else{
-          postListAdapter.updatePostList(results)
+            postListAdapter.updatePostList(results)
             postListAdapter.notifyDataSetChanged()
         }
     }
@@ -223,8 +183,6 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
             .commit()
     }
 
-    fun getHostingAdapter():HostingAndGameAdapter= hostAdapter
-
     @SuppressLint("CheckResult")
     fun loadListHosting(){
         appApi.getAllHosting()
@@ -243,7 +201,8 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
 
 
     fun loadListGames(){
-        appApi.getAllGames()
+        compositeDisposable.add(
+            appApi.getAllGames()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen  {ob -> ob.take(3).delay(10,TimeUnit.SECONDS)}
@@ -251,6 +210,7 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
                     loadingGameCard.value = View.VISIBLE
                     progressGameCard.value = View.GONE},
                         {oError()})
+        )
     }
 
     fun onResultOfGames(games:List<InfoAboutGame>){
@@ -274,11 +234,30 @@ class MainFragmentViewModel(private val postDao: ServersDao): BaseViewModel(){
     }
 
     fun  onClick_socialIcon_Twitter(view:View){
-        startActivity(this.activityFragment,Intent(Intent.ACTION_VIEW, Uri.parse("$TWITTER_URL")),null)
+        startActivity(this.activityFragment,Intent(Intent.ACTION_VIEW, Uri.parse(TWITTER_URL)),null)
     }
 
     fun  onClick_socialIcon_Vk(view:View){
-        startActivity(view.context,Intent(Intent.ACTION_VIEW, Uri.parse("$VK_GROUP_URL")),null)
+        startActivity(view.context,Intent(Intent.ACTION_VIEW, Uri.parse(VK_GROUP_URL)),null)
+    }
+
+    fun onClick_buyThis(view:View){
+        startActivity(view.context,Intent(Intent.ACTION_VIEW, Uri.parse(BUY_URL)),null)
+    }
+
+    fun onClick_about(view:View){
+        val dialog =  Dialog(view.context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_info)
+        dialog.setCancelable(true)
+
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialog.window.attributes)
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+
+        dialog.show()
+        dialog.window.attributes = lp
     }
 
 }

@@ -4,12 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.textfield.TextInputLayout
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_about.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -18,6 +25,8 @@ import ru.ipgames.app.utils.GITHUB_URL
 import ru.ipgames.app.utils.LAST_UPDATE
 import ru.ipgames.app.utils.VERSION
 import ru.ipgames.app.utils.VK_AUTOR_URL
+import java.text.SimpleDateFormat
+import java.util.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -28,20 +37,23 @@ class AboutFragment : Fragment() {
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
 
+   lateinit var  database: FirebaseDatabase
+   lateinit var  myRef: DatabaseReference
+    val mAuth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        database = FirebaseDatabase.getInstance()
+        database.setPersistenceEnabled(true)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        version.text = "$VERSION"
-        update.text = "$LAST_UPDATE"
-        vk_layout.setOnClickListener {startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$VK_AUTOR_URL")))}
-        github_layout.setOnClickListener {startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_URL")))}
+        initButtons()
         initActionBar()
     }
 
@@ -61,7 +73,7 @@ class AboutFragment : Fragment() {
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener") as Throwable
         }
     }
 
@@ -93,5 +105,20 @@ class AboutFragment : Fragment() {
             .layoutParams as AppBarLayout.LayoutParams
         layoutParams.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
         (activity as AppCompatActivity).maintoolbar.layoutParams = layoutParams
+    }
+
+    fun initButtons(){
+        version.text = "$VERSION"
+        update.text = "$LAST_UPDATE"
+        vk_layout.setOnClickListener {startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$VK_AUTOR_URL")))}
+        github_layout.setOnClickListener {startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_URL")))}
+        bonus_btn.setOnClickListener {
+                                        myRef = database.getReference("/").child("bonus").child("${mAuth.currentUser?.uid}")
+                                        myRef.child("name").setValue("${bonus_edit.text}")
+                                        myRef.child("data").setValue("${SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date())}")
+                                        bonus_edit.text.clear()
+
+                                        Toast.makeText(activity,"Бонус получен!",Toast.LENGTH_LONG).show()
+                                     }
     }
 }

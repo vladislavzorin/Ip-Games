@@ -1,7 +1,7 @@
 package ru.ipgames.app.adapters
 
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import ru.ipgames.app.R
@@ -9,7 +9,7 @@ import ru.ipgames.app.databinding.ItemFragmentGamesBinding
 import ru.ipgames.app.model.InfoAboutGame
 import ru.ipgames.app.viewModels.GamesFragmentAdapterViewModel
 
-class GamesFragmentAdapter:RecyclerView.Adapter<GamesFragmentAdapter.ViewHolder>() {
+class GamesFragmentAdapter: RecyclerView.Adapter<GamesFragmentAdapter.ViewHolder>() {
     private lateinit var gamesList:MutableList<InfoAboutGame>
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {

@@ -1,6 +1,6 @@
 package ru.ipgames.app.base
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import ru.ipgames.app.App
 import ru.ipgames.app.injection.component.DaggerViewModelInjector
 import ru.ipgames.app.injection.component.ViewModelInjector

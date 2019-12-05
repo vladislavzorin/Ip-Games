@@ -1,6 +1,6 @@
 package ru.ipgames.app.viewModels
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.ipgames.app.adapters.GamesFragmentAdapter

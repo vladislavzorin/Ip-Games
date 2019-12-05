@@ -6,7 +6,7 @@
               android:background="@color/grey_10"
               android:orientation="vertical">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,7 +19,7 @@
                 android:orientation="vertical"
                 android:padding="@dimen/spacing_middle">
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="2dp"
@@ -46,17 +46,17 @@
 
                         <View
                                 android:layout_width="@dimen/spacing_large"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"/>
 
                         <ImageView
                                 android:layout_width="@dimen/spacing_xxlarge"
                                 android:layout_height="@dimen/spacing_xxlarge"
                                 android:src="@drawable/logo_ig"
-                                android:tint="@color/blue_200" />
+                                android:tint="@color/blue_200"/>
 
                         <View
                                 android:layout_width="@dimen/spacing_large"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"/>
 
                         <LinearLayout
                                 android:layout_width="match_parent"
@@ -68,14 +68,14 @@
                                     android:layout_height="wrap_content"
                                     android:text="IP-Games.ru"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                                    android:textColor="@color/grey_80" />
+                                    android:textColor="@color/grey_80"/>
 
                             <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Мониторинг игровых серверов"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:textColor="@color/grey_40" />
+                                    android:textColor="@color/grey_40"/>
 
                         </LinearLayout>
 
@@ -95,18 +95,18 @@
 
                         <View
                                 android:layout_width="@dimen/spacing_mlarge"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"/>
 
                         <ImageButton
                                 android:layout_width="@dimen/spacing_xmlarge"
                                 android:layout_height="@dimen/spacing_xmlarge"
                                 android:background="@android:color/transparent"
                                 android:tint="@color/grey_40"
-                                app:srcCompat="@drawable/ic_info" />
+                                app:srcCompat="@drawable/ic_info"/>
 
                         <View
                                 android:layout_width="@dimen/spacing_mlarge"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"/>
 
                         <LinearLayout
                                 android:layout_width="match_parent"
@@ -119,7 +119,7 @@
                                     android:text="Версия"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                     android:textColor="@color/grey_80"
-                                    app:fontFamily="sans-serif-medium" />
+                                    app:fontFamily="sans-serif-medium"/>
 
                             <TextView
                                     android:id="@+id/version"
@@ -127,7 +127,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="4.2"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:textColor="@color/grey_40" />
+                                    android:textColor="@color/grey_40"/>
 
                         </LinearLayout>
 
@@ -147,18 +147,18 @@
 
                         <View
                                 android:layout_width="@dimen/spacing_mlarge"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"/>
 
                         <ImageButton
                                 android:layout_width="@dimen/spacing_xmlarge"
                                 android:layout_height="@dimen/spacing_xmlarge"
                                 android:background="@android:color/transparent"
                                 android:tint="@color/grey_40"
-                                app:srcCompat="@drawable/ic_info" />
+                                app:srcCompat="@drawable/ic_info"/>
 
                         <View
                                 android:layout_width="@dimen/spacing_mlarge"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"/>
 
                         <LinearLayout
                                 android:layout_width="match_parent"
@@ -171,7 +171,7 @@
                                     android:text="Последнее обновление"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                     android:textColor="@color/grey_80"
-                                    app:fontFamily="sans-serif-medium" />
+                                    app:fontFamily="sans-serif-medium"/>
 
                             <TextView
                                     android:id="@+id/update"
@@ -179,7 +179,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="4.2"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:textColor="@color/grey_40" />
+                                    android:textColor="@color/grey_40"/>
 
                         </LinearLayout>
 
@@ -187,13 +187,13 @@
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <View
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/spacing_middle" />
+                    android:layout_height="@dimen/spacing_middle"/>
 
-            <android.support.v7.widget.CardView
+            <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="visible"
@@ -218,7 +218,7 @@
                             android:text="Автор"
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/grey_90"
-                            app:fontFamily="sans-serif-medium" />
+                            app:fontFamily="sans-serif-medium"/>
 
                     <LinearLayout
                             android:id="@+id/vk_layout"
@@ -234,18 +234,18 @@
 
                         <View
                                 android:layout_width="@dimen/spacing_mlarge"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"/>
 
                         <ImageButton
                                 android:layout_width="@dimen/spacing_xmlarge"
                                 android:layout_height="@dimen/spacing_xmlarge"
                                 android:background="@android:color/transparent"
                                 android:tint="@color/grey_40"
-                                app:srcCompat="@drawable/ic_person" />
+                                app:srcCompat="@drawable/ic_person"/>
 
                         <View
                                 android:layout_width="@dimen/spacing_mlarge"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"/>
 
                         <LinearLayout
                                 android:layout_width="match_parent"
@@ -258,14 +258,14 @@
                                     android:text="Vladislav Zorin"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                     android:textColor="@color/grey_80"
-                                    app:fontFamily="sans-serif-medium" />
+                                    app:fontFamily="sans-serif-medium"/>
 
                             <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Moscow, Russia"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                                    android:textColor="@color/grey_40" />
+                                    android:textColor="@color/grey_40"/>
 
                         </LinearLayout>
 
@@ -286,40 +286,93 @@
 
                         <View
                                 android:layout_width="@dimen/spacing_mlarge"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"/>
 
                         <ImageButton
                                 android:layout_width="@dimen/spacing_xmlarge"
                                 android:layout_height="@dimen/spacing_xmlarge"
                                 android:background="@android:color/transparent"
                                 android:tint="@color/grey_40"
-                                app:srcCompat="@drawable/ic_github" />
+                                app:srcCompat="@drawable/ic_github"/>
 
                         <View
                                 android:layout_width="@dimen/spacing_mlarge"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"/>
 
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="GitHub"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_80" />
+                                android:textColor="@color/grey_80"/>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
             <View
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/spacing_middle" />
+                    android:layout_height="@dimen/spacing_middle"/>
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="2dp"
+                    app:cardUseCompatPadding="true">
+
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/spacing_middle"
+                        android:paddingTop="@dimen/spacing_middle">
+
+                    <EditText   android:id="@+id/bonus_edit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/bonus_name"
+                                android:layout_toLeftOf="@id/bonus_btn"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="@dimen/spacing_mlarge"
+                                android:layout_marginRight="5dp"
+                                android:hint="Введите ник"/>
+
+                    <TextView
+                            android:id="@+id/bonus_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_middle"
+                            android:layout_marginLeft="@dimen/spacing_mlarge"
+                            android:layout_marginRight="@dimen/spacing_mlarge"
+                            android:layout_marginTop="@dimen/spacing_middle"
+                            android:text="Бонус"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_90"
+                            app:fontFamily="sans-serif-medium"/>
+
+
+                    <Button android:id="@+id/bonus_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="получить"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="8dp"
+                            android:textColor="@color/grey_90"
+                            style="@style/Button.Accent.Borderless.WhiteText"
+                            android:layout_below="@id/bonus_name"
+                    />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
 
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
 

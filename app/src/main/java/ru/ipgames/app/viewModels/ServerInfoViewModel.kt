@@ -1,7 +1,7 @@
 package ru.ipgames.app.viewModels
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context

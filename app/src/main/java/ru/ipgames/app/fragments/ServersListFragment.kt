@@ -1,15 +1,15 @@
 package ru.ipgames.app.fragments
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.appbar.AppBarLayout
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +56,11 @@ class ServersListFragment() : Fragment() {
                                             swipeRefreshLayout.isEnabled = false
                                     }
             })
-            linearLayoutManager = LinearLayoutManager(view!!.context, LinearLayoutManager.VERTICAL, false)
+            linearLayoutManager = LinearLayoutManager(
+                view!!.context,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
             serversList.layoutManager = linearLayoutManager
             serversViewModel.mutablePage.observe(this@ServersListFragment,Observer{ page = it?:1 })
             serversViewModel.setFilterMode(isFilterMode,gameId)

@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v4.widget.NestedScrollView
+            <androidx.core.widget.NestedScrollView
                     android:id="@+id/nested_scroll_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -27,7 +27,7 @@
                         android:orientation="vertical"
                         android:paddingTop="@dimen/spacing_medium">
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/spacing_medium"
@@ -61,27 +61,41 @@
                                         android:layout_gravity="center"
                                         android:text="@string/title_main_fragment"
                                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                        android:textColor="@color/colorWhite" />
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="14sp"
+                                />
                             </LinearLayout>
 
                             <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:gravity="right"
+
                                     android:orientation="horizontal">
 
                                 <Button
                                         style="@style/Button.Accent.Borderless.WhiteText"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:onClick="@{view -> viewModel.onClick_about(view)}"
+                                        android:text="О ПРОЕКТЕ" />
+
+                                <Button
+                                        style="@style/Button.Accent.Borderless.WhiteText"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
                                         android:gravity="center"
                                         android:onClick="@{view -> viewModel.onClick_getAddYourServerActivity(view)}"
-                                        android:text="ДОБАВИТЬ СВОЙ СЕРВЕР" />
+                                        android:text="ДОБАВИТЬ СВОЙ СЕРВЕР"
+                                        android:paddingRight="5dp"
+                                        android:paddingLeft="5dp"/>
 
                             </LinearLayout>
 
                         </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
 
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -89,7 +103,7 @@
                             android:orientation="horizontal"
                             android:padding="@dimen/spacing_medium">
 
-                        <android.support.v7.widget.CardView
+                        <androidx.cardview.widget.CardView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/spacing_medium"
@@ -144,7 +158,7 @@
                                         android:layout_marginBottom="10dp"
                                         app:mutableVisibility="@{viewModel.progressGameCard}"/>
 
-                                <android.support.v7.widget.RecyclerView
+                                <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/games_list"
                                         android:visibility="gone"
                                         android:layout_width="match_parent"
@@ -177,9 +191,9 @@
                                 </LinearLayout>
 
                             </LinearLayout>
-                        </android.support.v7.widget.CardView>
+                        </androidx.cardview.widget.CardView>
 
-                        <android.support.v7.widget.CardView
+                        <androidx.cardview.widget.CardView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/spacing_medium"
@@ -235,7 +249,7 @@
                                         android:layout_height="wrap_content"
                                         app:mutableVisibility="@{viewModel.progressHostingCard}"/>
 
-                                <android.support.v7.widget.RecyclerView
+                                <androidx.recyclerview.widget.RecyclerView
                                         android:id="@+id/hosting_list"
                                         android:visibility="gone"
                                         android:layout_width="match_parent"
@@ -268,10 +282,93 @@
 
 
                             </LinearLayout>
-                        </android.support.v7.widget.CardView>
+                        </androidx.cardview.widget.CardView>
                     </LinearLayout>
 
-                    <android.support.v7.widget.CardView
+                    <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardBackgroundColor="@color/colorWhite"
+                            android:layout_marginBottom="@dimen/spacing_medium"
+                            android:layout_marginLeft="@dimen/spacing_middle"
+                            android:layout_marginRight="@dimen/spacing_middle"
+                            android:layout_marginTop="@dimen/spacing_medium"
+                            app:cardCornerRadius="2dp"
+                            app:cardElevation="2dp">
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                            <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                <ImageButton
+                                        android:id="@+id/img_VIPserver"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="?attr/actionBarSize"
+                                        android:background="?attr/selectableItemBackgroundBorderless"
+                                        android:tint="@color/blue_600"
+                                        android:layout_marginLeft="15dp"
+                                        app:srcCompat="@drawable/ic_server"
+                                        tools:ignore="VectorDrawableCompat" />
+
+                                <TextView
+                                        android:layout_toRightOf="@+id/img_VIPserver"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginLeft="10dp"
+                                        android:text="VIP Сервера"
+                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/grey_60" />
+                            </RelativeLayout>
+
+                            <ProgressBar
+                                    android:id="@+id/VIPprogressBar_main"
+                                    style="@style/AppTheme.Progress.Dark"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="30dp"
+                                    app:mutableVisibility="@{viewModel.progressMainCard}"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/VIPpost_list"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:visibility="gone"
+                                    app:adapter="@{viewModel.getPostListAdapter()}"
+                                    app:mutableVisibility="@{viewModel.loadingMainCard}"/>
+
+                            <View
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="1dp"
+                                    android:background="@color/grey_40" />
+
+                            <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                <Button
+                                        style="@style/Button.Accent.Borderless.WhiteText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="КУПИТЬ ЗДЕСЬ МЕСТО"
+                                        android:textColor="@color/blue_700"
+                                        android:onClick="@{view -> viewModel.onClick_buyThis(view)}"/>
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:cardBackgroundColor="@color/colorWhite"
@@ -330,17 +427,18 @@
                                     android:layout_marginBottom="30dp"
                                     app:mutableVisibility="@{viewModel.progressMainCard}"/>
 
-                            <android.support.v7.widget.RecyclerView
+                            <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/post_list"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
+                                    android:layout_marginTop="2dp"
                                     android:visibility="gone"
                                     app:adapter="@{viewModel.getPostListAdapter()}"
                                     app:mutableVisibility="@{viewModel.loadingMainCard}"/>
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                    </androidx.cardview.widget.CardView>
+
 
                     <LinearLayout
                             android:layout_marginTop="5dp"
@@ -351,7 +449,7 @@
                             android:paddingLeft="@dimen/spacing_middle"
                             android:paddingRight="@dimen/spacing_middle">
 
-                        <android.support.v7.widget.CardView
+                        <androidx.cardview.widget.CardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/spacing_medium"
@@ -392,12 +490,12 @@
 
                             </LinearLayout>
 
-                        </android.support.v7.widget.CardView>
+                        </androidx.cardview.widget.CardView>
                     </LinearLayout>
 
 
 
                 </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
+            </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </layout>

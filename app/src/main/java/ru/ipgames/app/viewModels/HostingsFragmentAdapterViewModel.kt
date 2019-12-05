@@ -1,7 +1,7 @@
 package ru.ipgames.app.viewModels
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import ru.ipgames.app.model.InfoAboutHosting
 
 class HostingsFragmentAdapterViewModel:ViewModel() {

@@ -1,13 +1,14 @@
 package ru.ipgames.app.activities
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
 import android.graphics.Paint
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.MenuItem
+import androidx.recyclerview.widget.RecyclerView
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
@@ -21,7 +22,7 @@ import java.text.SimpleDateFormat
 class ServerInfoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityServerInfoBinding
     private lateinit var viewModel: ServerInfoViewModel
-    private lateinit var linearLayoutManager:LinearLayoutManager
+    private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var server_ip:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +42,11 @@ class ServerInfoActivity : AppCompatActivity() {
 
     fun initBinding(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_server_info)
-        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        linearLayoutManager = LinearLayoutManager(
+            this,
+            RecyclerView.VERTICAL,
+            false
+        )
         binding.listOnlinePlayers.layoutManager = linearLayoutManager
         viewModel = ViewModelProviders.of(this).get(ServerInfoViewModel::class.java)
         viewModel.context = this

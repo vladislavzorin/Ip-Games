@@ -1,26 +1,24 @@
 package ru.ipgames.app.activities
 
 import android.content.Intent
-import android.graphics.drawable.Icon
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.navigation.NavigationView
+import androidx.core.view.GravityCompat
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ru.ipgames.app.R
 import ru.ipgames.app.databinding.ActivityMainBinding
 import ru.ipgames.app.fragments.*
-import ru.ipgames.app.utils.Tools
-import ru.ipgames.app.utils.URL
+import ru.ipgames.app.utils.*
 import ru.ipgames.app.viewModels.MainFragmentViewModel
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener ,AboutFragment.OnFragmentInteractionListener{
@@ -29,10 +27,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainFragmentViewModel
     private var errorSnackbar: Snackbar? = null
     private val fm = this.supportFragmentManager
+
+    private val mAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -42,9 +41,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initFragment()
         initToolbar()
         initComponents()
+
+        mAuth.signInAnonymously()
+
+        val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+       // val params = Bundle()
+      //  params.putString("Reg", mAuth.uid)
+       // mFirebaseAnalytics.logEvent("eventReg", params)
+
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.METHOD, "auth")
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
     }
 
-    fun initFragment(){
+    private fun initFragment(){
         fm.beginTransaction()
             .apply { replace(R.id.fragmentLayout, MainFragment()) }
             .commit()
@@ -120,7 +130,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         Tools.setSystemBarColor(this)
     }
 
-    fun initComponents(){
+    private fun initComponents(){
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, maintoolbar,
             R.string.navigation_drawer_open,
@@ -134,7 +144,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun showError(@StringRes errorMessage:Int){
-        errorSnackbar = Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_INDEFINITE)
+      //  errorSnackbar = Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_INDEFINITE)
         errorSnackbar?.setAction(R.string.retry, viewModel.errorClickListener)
         errorSnackbar?.show()
     }
@@ -149,9 +159,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 finish()
                 return true
             }
-            R.id.action_goToSite ->{
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$URL")))
-            }
+            R.id.action_goToSite -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(URL)))
+            R.id.action_goToForum -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(FORUM_URL)))
+            R.id.action_goToBuy-> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(BUY_URL)))
+            R.id.action_goToCheakServer-> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(CHEAK_SERVER_URL)))
+
             R.id.action_about ->{
                 fm.beginTransaction()
                     .apply { replace(R.id.fragmentLayout, AboutFragment.newInstance("","")) }

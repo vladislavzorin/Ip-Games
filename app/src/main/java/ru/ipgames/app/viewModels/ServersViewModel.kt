@@ -1,7 +1,7 @@
 package ru.ipgames.app.viewModels
 
-import android.arch.lifecycle.MutableLiveData
-import android.support.v7.util.DiffUtil
+import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.DiffUtil
 import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

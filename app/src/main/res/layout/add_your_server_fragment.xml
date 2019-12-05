@@ -11,7 +11,7 @@
             type="ru.ipgames.app.viewModels.AddYourServerViewModel" />
     </data>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -196,7 +196,7 @@
                         android:orientation="vertical">
 
 
-                        <android.support.v7.widget.AppCompatEditText
+                        <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/et_server_ip"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -336,7 +336,7 @@
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>
 
 

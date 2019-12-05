@@ -1,7 +1,7 @@
 package ru.ipgames.app.viewModels
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import android.content.Intent
 import android.view.View
 import ru.ipgames.app.activities.ServerInfoActivity

@@ -1,8 +1,8 @@
 package ru.ipgames.app.adapters
 
 import android.content.Intent
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +44,7 @@ class ServerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun getData():List<Server> = serverList
 
-    class ViewHolder(private val binding: ItemPostBinding):RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(private val binding: ItemPostBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(server:Server){
             binding.server = server
             binding.rootItem.setOnClickListener { view->

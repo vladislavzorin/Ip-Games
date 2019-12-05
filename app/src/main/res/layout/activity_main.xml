@@ -3,15 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/parent_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/grey_10"
             android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
+        <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/AppTheme.AppBarOverlay"
@@ -19,9 +18,9 @@
 
             <include layout="@layout/toolbar" />
 
-        </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <android.support.v4.widget.DrawerLayout
+        <androidx.drawerlayout.widget.DrawerLayout
                 android:id="@+id/drawer_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -34,7 +33,7 @@
                     android:layout_height="match_parent"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-            <android.support.design.widget.NavigationView
+            <com.google.android.material.navigation.NavigationView
                     android:id="@+id/nav_view"
                     android:layout_width="220dp"
                     android:layout_height="match_parent"
@@ -43,6 +42,6 @@
                     app:menu="@menu/activity_main_drawer"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        </android.support.v4.widget.DrawerLayout>
-    </android.support.design.widget.CoordinatorLayout>
+        </androidx.drawerlayout.widget.DrawerLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

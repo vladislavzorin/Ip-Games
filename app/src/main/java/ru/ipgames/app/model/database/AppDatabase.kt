@@ -1,7 +1,7 @@
 package ru.ipgames.app.model.database
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import ru.ipgames.app.model.Server
 import ru.ipgames.app.model.ServerDao
 import ru.ipgames.app.model.Servers

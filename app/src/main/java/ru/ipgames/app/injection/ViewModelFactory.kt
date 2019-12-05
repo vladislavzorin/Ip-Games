@@ -1,9 +1,9 @@
 package ru.ipgames.app.injection
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.persistence.room.Room
-import android.support.v7.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
+import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.Observable
 import ru.ipgames.app.viewModels.MainFragmentViewModel
 import ru.ipgames.app.viewModels.ServersViewModel

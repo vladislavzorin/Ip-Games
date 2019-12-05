@@ -1,17 +1,19 @@
 package ru.ipgames.app.fragments
 
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.toolbar.*
 import ru.ipgames.app.R
 import ru.ipgames.app.databinding.MainFragmentBinding
@@ -44,9 +46,27 @@ class MainFragment : Fragment() {
         model.activityFragment = activity as FragmentActivity
 
         DataBindingUtil.getBinding<MainFragmentBinding>(view!!)!!.run{
-            postList.layoutManager = LinearLayoutManager(view!!.context, LinearLayoutManager.VERTICAL, false)
-            hostingList.layoutManager = LinearLayoutManager(view!!.context, LinearLayoutManager.VERTICAL, false)
-            gamesList.layoutManager = LinearLayoutManager(view!!.context, LinearLayoutManager.VERTICAL, false)
+            postList.layoutManager = LinearLayoutManager(
+                view!!.context,
+                RecyclerView.VERTICAL,
+                false
+            )
+            hostingList.layoutManager = LinearLayoutManager(
+                view!!.context,
+                RecyclerView.VERTICAL,
+                false
+            )
+            gamesList.layoutManager = LinearLayoutManager(
+                view!!.context,
+                RecyclerView.VERTICAL,
+                false
+            )
+            VIPpostList.layoutManager = LinearLayoutManager(
+                view!!.context,
+                RecyclerView.VERTICAL,
+                false
+            )
+
             model.loadServers2(1)
             viewModel = model
         }

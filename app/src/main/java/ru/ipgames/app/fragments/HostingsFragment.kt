@@ -1,12 +1,12 @@
 package ru.ipgames.app.fragments
 
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import com.google.android.material.appbar.AppBarLayout
+import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +36,11 @@ class HostingsFragment : Fragment() {
         fragmentViewModel = ViewModelProviders.of(this).get(HostingsFragmentViewModel::class.java)
 
         DataBindingUtil.getBinding<HostingsFragmentBinding>(view!!)!!.run{
-            hosting_info_list.layoutManager = LinearLayoutManager(view!!.context, LinearLayoutManager.VERTICAL, false)
+            hosting_info_list.layoutManager = LinearLayoutManager(
+                view!!.context,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
             viewModel = fragmentViewModel
         }
 
