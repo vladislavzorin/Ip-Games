@@ -97,12 +97,12 @@
                                 android:layout_width="@dimen/spacing_mlarge"
                                 android:layout_height="wrap_content"/>
 
-                        <ImageButton
-                                android:layout_width="@dimen/spacing_xmlarge"
-                                android:layout_height="@dimen/spacing_xmlarge"
-                                android:background="@android:color/transparent"
+                        <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="7dp"
                                 android:tint="@color/grey_40"
-                                app:srcCompat="@drawable/ic_info"/>
+                                android:src="@drawable/ic_info"/>
 
                         <View
                                 android:layout_width="@dimen/spacing_mlarge"

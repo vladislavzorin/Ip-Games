@@ -304,89 +304,6 @@
                                     android:layout_height="wrap_content">
 
                                 <ImageButton
-                                        android:id="@+id/img_VIPserver"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="?attr/actionBarSize"
-                                        android:background="?attr/selectableItemBackgroundBorderless"
-                                        android:tint="@color/blue_600"
-                                        android:layout_marginLeft="15dp"
-                                        app:srcCompat="@drawable/ic_server"
-                                        tools:ignore="VectorDrawableCompat" />
-
-                                <TextView
-                                        android:layout_toRightOf="@+id/img_VIPserver"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerVertical="true"
-                                        android:layout_marginLeft="10dp"
-                                        android:text="VIP Сервера"
-                                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-                                        android:textColor="@color/grey_60" />
-                            </RelativeLayout>
-
-                            <ProgressBar
-                                    android:id="@+id/VIPprogressBar_main"
-                                    style="@style/AppTheme.Progress.Dark"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="10dp"
-                                    android:layout_marginBottom="30dp"
-                                    app:mutableVisibility="@{viewModel.progressMainCard}"/>
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/VIPpost_list"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="2dp"
-                                    android:visibility="gone"
-                                    app:adapter="@{viewModel.getPostListAdapter()}"
-                                    app:mutableVisibility="@{viewModel.loadingMainCard}"/>
-
-                            <View
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="1dp"
-                                    android:background="@color/grey_40" />
-
-                            <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                <Button
-                                        style="@style/Button.Accent.Borderless.WhiteText"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center_horizontal"
-                                        android:text="КУПИТЬ ЗДЕСЬ МЕСТО"
-                                        android:textColor="@color/blue_700"
-                                        android:onClick="@{view -> viewModel.onClick_buyThis(view)}"/>
-
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:cardBackgroundColor="@color/colorWhite"
-                            android:layout_marginBottom="@dimen/spacing_medium"
-                            android:layout_marginLeft="@dimen/spacing_middle"
-                            android:layout_marginRight="@dimen/spacing_middle"
-                            android:layout_marginTop="@dimen/spacing_medium"
-                            app:cardCornerRadius="2dp"
-                            app:cardElevation="2dp">
-                        <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-                            <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-
-                                <ImageButton
                                         android:id="@+id/img_server"
                                         android:layout_width="wrap_content"
                                         android:layout_height="?attr/actionBarSize"
@@ -435,6 +352,27 @@
                                     android:visibility="gone"
                                     app:adapter="@{viewModel.getPostListAdapter()}"
                                     app:mutableVisibility="@{viewModel.loadingMainCard}"/>
+
+                            <View
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="1dp"
+                                    android:background="@color/grey_40" />
+
+                            <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                <Button
+                                        style="@style/Button.Accent.Borderless.WhiteText"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_horizontal"
+                                        android:text="КУПИТЬ ЗДЕСЬ МЕСТО"
+                                        android:textColor="@color/blue_700"
+                                        android:onClick="@{view -> viewModel.onClick_buyThis(view)}"/>
+                            </LinearLayout>
                         </LinearLayout>
 
                     </androidx.cardview.widget.CardView>

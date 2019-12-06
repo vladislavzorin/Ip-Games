@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -47,8 +48,17 @@ class AboutFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        database = FirebaseDatabase.getInstance()
-        database.setPersistenceEnabled(true)
+
+        if (!::myRef.isInitialized) {
+            database = FirebaseDatabase.getInstance()
+            //database.setPersistenceEnabled(true)
+            myRef = database.getReference("/").child("bonus").child("${mAuth.currentUser?.uid}")
+        }
+
+        val mFirebaseAnalytics = FirebaseAnalytics.getInstance((activity as AppCompatActivity).baseContext)
+        val params = Bundle()
+        params.putString("openAbout","app")
+        mFirebaseAnalytics.logEvent("serverInfo",params)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -113,11 +123,8 @@ class AboutFragment : Fragment() {
         vk_layout.setOnClickListener {startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$VK_AUTOR_URL")))}
         github_layout.setOnClickListener {startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("$GITHUB_URL")))}
         bonus_btn.setOnClickListener {
-                                        myRef = database.getReference("/").child("bonus").child("${mAuth.currentUser?.uid}")
-                                        myRef.child("name").setValue("${bonus_edit.text}")
-                                        myRef.child("data").setValue("${SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date())}")
+                                        myRef.child("${SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(Date())}").setValue("${bonus_edit.text}")
                                         bonus_edit.text.clear()
-
                                         Toast.makeText(activity,"Бонус получен!",Toast.LENGTH_LONG).show()
                                      }
     }

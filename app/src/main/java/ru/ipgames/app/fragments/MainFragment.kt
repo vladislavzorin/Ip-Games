@@ -61,11 +61,6 @@ class MainFragment : Fragment() {
                 RecyclerView.VERTICAL,
                 false
             )
-            VIPpostList.layoutManager = LinearLayoutManager(
-                view!!.context,
-                RecyclerView.VERTICAL,
-                false
-            )
 
             model.loadServers2(1)
             viewModel = model
@@ -86,11 +81,6 @@ class MainFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-      /*  DataBindingUtil.getBinding<MainFragmentBinding>(view!!)!!.run{
-            model.unSubscribeAll()
-            viewModel = model
-        }
-        */
         model.unSubscribeAll()
     }
 

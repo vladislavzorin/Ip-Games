@@ -9,6 +9,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.MenuItem
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
@@ -33,6 +34,11 @@ class ServerInfoActivity : AppCompatActivity() {
         initBinding()
         initToolbar()
         initRefresh()
+
+        val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val params = Bundle()
+        params.putString("server",server_ip)
+        mFirebaseAnalytics.logEvent("openServerInfo", params)
     }
 
     override fun onStart() {

@@ -14,8 +14,6 @@ interface ViewModelInjector{
 
     fun inject(serverListViewModel: MainFragmentViewModel)
 
-    fun inject(serverItemViewModel: ServerItemViewModel)
-
     fun inject(serversViewModel: ServersViewModel)
 
     fun inject(serverInfoViewModel: ServerInfoViewModel)

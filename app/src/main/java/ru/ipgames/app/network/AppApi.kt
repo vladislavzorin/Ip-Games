@@ -9,10 +9,10 @@ import ru.ipgames.app.utils.KEY_ADDSERVER
 
 interface AppApi {
 
-    @GET("/method/servers_list_Android.php?key=$KEY")
+    @GET("/method/android_servers_list?key=$KEY")
     fun getServers(@Query("page") page:Int, @Query("limit") limit:Int): Observable<List<Server>>
 
-    @GET("/method/servers_list_Android.php?key=$KEY&limit=10")
+    @GET("/method/android_servers_list?key=$KEY&limit=10")
     fun getServersMain(@Query("page") page:Int): Observable<List<Servers>>
 
     @GET("/method/server.get?key=$KEY")
@@ -39,5 +39,4 @@ interface AppApi {
         @Query("server_game") gameId: String,
         @Query("qport") port:Int
     ):Observable<AddServerResponse>
-
 }

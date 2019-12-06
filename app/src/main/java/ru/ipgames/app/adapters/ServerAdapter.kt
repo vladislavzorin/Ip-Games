@@ -51,7 +51,6 @@ class ServerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val intent = Intent(view.context, ServerInfoActivity::class.java)
                 intent.putExtra("server_ip",server.address)
                 view.context.startActivity(intent)
-
             }
         }
     }

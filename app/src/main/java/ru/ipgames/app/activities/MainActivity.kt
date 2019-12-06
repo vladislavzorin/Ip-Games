@@ -41,14 +41,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initFragment()
         initToolbar()
         initComponents()
+        initAuth()
+    }
 
+    private fun initAuth(){
         mAuth.signInAnonymously()
-
         val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
-       // val params = Bundle()
-      //  params.putString("Reg", mAuth.uid)
-       // mFirebaseAnalytics.logEvent("eventReg", params)
-
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.METHOD, "auth")
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
