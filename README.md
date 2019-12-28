@@ -22,4 +22,4 @@
 * Показывать информацию о хостингах
 * Показывать информацию о количестве игроков и серверов онлайн в игре
 
-[СКАЧАТЬ APK ФАЙЛ](https://github.com/vladislavzorin/Ip-Games/tree/master/app/build/outputs/apk/debug)
+[![СКАЧАТЬ](https://properbooks.ru/image/catalog/google.png)](https://play.google.com/store/apps/details?id=ru.ipgames.app)
