@@ -11,6 +11,8 @@
     <string name="menu_aboutApp">О приложении</string>
     <string name="drawer_titleGame">Игры</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-6501617133685717~9414297692</string>
+
     <string-array name="gamelist">
         <item>Counter-Strike: Global Offensive</item>
         <item>Counter-Strike 1.6</item>

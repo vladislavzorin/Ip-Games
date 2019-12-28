@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -15,7 +15,7 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="@dimen/spacing_middle">
 
@@ -149,12 +149,12 @@
                                 android:layout_width="@dimen/spacing_mlarge"
                                 android:layout_height="wrap_content"/>
 
-                        <ImageButton
-                                android:layout_width="@dimen/spacing_xmlarge"
-                                android:layout_height="@dimen/spacing_xmlarge"
-                                android:background="@android:color/transparent"
+                        <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:padding="7dp"
                                 android:tint="@color/grey_40"
-                                app:srcCompat="@drawable/ic_info"/>
+                                android:src="@drawable/ic_info"/>
 
                         <View
                                 android:layout_width="@dimen/spacing_mlarge"
@@ -316,6 +316,16 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/spacing_middle"/>
 
+            <com.google.android.gms.ads.AdView
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="ca-app-pub-6501617133685717/3783601029">
+            </com.google.android.gms.ads.AdView>
+
             <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -331,16 +341,6 @@
                         android:paddingBottom="@dimen/spacing_middle"
                         android:paddingTop="@dimen/spacing_middle">
 
-                    <EditText   android:id="@+id/bonus_edit"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_below="@id/bonus_name"
-                                android:layout_toLeftOf="@id/bonus_btn"
-                                android:layout_alignParentLeft="true"
-                                android:layout_marginLeft="@dimen/spacing_mlarge"
-                                android:layout_marginRight="5dp"
-                                android:hint="Введите ник"/>
-
                     <TextView
                             android:id="@+id/bonus_name"
                             android:layout_width="wrap_content"
@@ -354,6 +354,16 @@
                             android:textColor="@color/grey_90"
                             app:fontFamily="sans-serif-medium"/>
 
+                    <EditText   android:id="@+id/bonus_edit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/bonus_name"
+                                android:layout_toLeftOf="@id/bonus_btn"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="@dimen/spacing_mlarge"
+                                android:layout_marginRight="5dp"
+                                android:hint="Введите ник"/>
+
 
                     <Button android:id="@+id/bonus_btn"
                             android:layout_width="wrap_content"
@@ -366,13 +376,36 @@
                             android:layout_below="@id/bonus_name"
                     />
 
+                    <ProgressBar android:id="@+id/about_progress"
+                                 android:layout_below="@id/bonus_name"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:visibility="gone"
+                    />
+
+                    <TextView
+                            android:id="@+id/end_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/bonus_name"
+                            android:text="Спасибо за участие! Бонус получен!"
+                            android:gravity="center"
+                            android:minHeight="50dp"
+                            android:layout_centerHorizontal="true"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textColor="@color/grey_90"
+                            app:fontFamily="sans-serif-medium"
+                            android:visibility="gone"/>
+
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-
         </LinearLayout>
+
 
     </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+
+
+</RelativeLayout>
 

@@ -15,7 +15,8 @@ data class ServerInfo(
         val ping:Byte,
         val mod:Any,
         val players: Players,
-        val map:Map
+        val map:Map,
+        val votes:Votes
 )
 
 data class Game(
@@ -29,4 +30,9 @@ data class Country(
         val code:String,
         val name:String,
         val img:String
+)
+
+data class Votes(
+        val likes:Int,
+        val dislikes:Int
 )

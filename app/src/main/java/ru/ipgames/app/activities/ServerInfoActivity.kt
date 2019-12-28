@@ -1,11 +1,14 @@
 package ru.ipgames.app.activities
 
+import android.graphics.Color
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.databinding.DataBindingUtil
 import android.graphics.Paint
+import android.graphics.PorterDuff
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.MenuItem
 import androidx.recyclerview.widget.RecyclerView
@@ -95,39 +98,58 @@ class ServerInfoActivity : AppCompatActivity() {
                 finish()
                 return true
             }
+            R.id.favorite ->{
+                if (viewModel.isFavoriteServer.value != false){
+                    item.icon = resources.getDrawable(R.drawable.ic_favorite_border)
+                    viewModel.deleteFavoriteServer()
+                }else{
+                    item.icon = resources.getDrawable(R.drawable.ic_favorite)
+                    viewModel.insertFavoriteServer()
+                }
+                item.icon.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     fun graphSettings(value:List<Stats>){
 
-        var plotPoints = arrayOfNulls<DataPoint>(value.size)
+        val plotPoints = arrayOfNulls<DataPoint>(value.size)
 
         binding.graph.viewport.setMinX(value[0].time*1000.toDouble())
-        for (i in 0..value.size-1) {
+        for (i in 0 until value.size) {
             plotPoints[i]= DataPoint(value[i].time*1000.toDouble(), value[i].players.toDouble())
         }
 
         binding.graph.addSeries(LineGraphSeries<DataPoint>(plotPoints))
         binding.graph.viewport.setMaxX(value[value.size-1].time*1000.toDouble())
-
         binding.graph.viewport.isXAxisBoundsManual = true
         binding.graph.viewport.isYAxisBoundsManual = true
         binding.graph.viewport.isScalable = true
         binding.graph.viewport.isScrollable = true
-
         binding.graph.gridLabelRenderer.isHighlightZeroLines = false
         binding.graph.gridLabelRenderer.verticalLabelsAlign = Paint.Align.LEFT
         binding.graph.gridLabelRenderer.labelHorizontalHeight = 140
         binding.graph.gridLabelRenderer.textSize = 20.toFloat()
-       // binding.graph.gridLabelRenderer.gridStyle = GridLabelRenderer.GridStyle.HORIZONTAL
         binding.graph.gridLabelRenderer.setHorizontalLabelsAngle(120)
         binding.graph.gridLabelRenderer.reloadStyles()
-
         binding.graph.gridLabelRenderer.labelFormatter = DateAsXAxisLabelFormatter(this,SimpleDateFormat("dd.MM hh:mm a"))
         binding.graph.gridLabelRenderer.setHumanRounding(true)
         binding.graph.gridLabelRenderer.numHorizontalLabels = 6
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_activity_server_info, menu)
+
+        val x = menu.findItem(R.id.favorite)
+        x.icon.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+
+        viewModel.isFavoriteServer.observe(this, Observer {value ->
+            x.icon = if (value) resources.getDrawable(R.drawable.ic_favorite) else resources.getDrawable(R.drawable.ic_favorite_border)
+            x.icon.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_ATOP)
+        })
+        return true
     }
 
 }

@@ -25,12 +25,10 @@ class OnlinePlayersAdapter: RecyclerView.Adapter<OnlinePlayersAdapter.ViewHolder
         return if(::playersList.isInitialized) playersList.size else 0
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
         val binding: ItemOnlinePlayersBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_online_players, parent, false)
         return ViewHolder(binding)
     }
-
 
     class ViewHolder(private val binding: ItemOnlinePlayersBinding): RecyclerView.ViewHolder(binding.root){
         private val viewModel = OnlinePlayersViewModel()

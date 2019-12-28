@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,11 +10,10 @@
             type="ru.ipgames.app.viewModels.AddYourServerViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:scrollbars="vertical">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,8 +22,6 @@
             android:background="@android:color/white"
             android:paddingLeft="@dimen/spacing_large"
             android:paddingRight="@dimen/spacing_large">
-
-            <!--top line-->
 
             <LinearLayout
                 android:layout_width="@dimen/spacing_xlarge"
@@ -39,8 +35,6 @@
                     android:background="@color/grey_10" />
 
             </LinearLayout>
-
-            <!--section title-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -129,8 +123,6 @@
 
             </LinearLayout>
 
-            <!--section description-->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -217,7 +209,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -319,24 +310,31 @@
 
             </LinearLayout>
 
-            <!--bottom line-->
+             <LinearLayout
+                     android:layout_width="@dimen/spacing_xlarge"
+                     android:layout_height="wrap_content"
+                     android:gravity="center_horizontal"
+                     android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="@dimen/spacing_xlarge"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                 <View
+                         android:layout_width="2dp"
+                         android:layout_height="wrap_content"
+                         android:background="@color/grey_10" />
 
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/grey_10" />
+             </LinearLayout>
 
-            </LinearLayout>
+         </LinearLayout>
 
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
-</layout>
+        <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-6501617133685717/8313038829">
+        </com.google.android.gms.ads.AdView>
+    </RelativeLayout>
+ </layout>
 
 

@@ -1,5 +1,6 @@
 package ru.ipgames.app.injection.module
 
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -7,9 +8,13 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import ru.ipgames.app.App
 import ru.ipgames.app.adapters.MainServersAdapter
 import ru.ipgames.app.adapters.OnlinePlayersAdapter
 import ru.ipgames.app.adapters.ServerAdapter
+import ru.ipgames.app.model.FavoriteServersDao
+import ru.ipgames.app.model.database.AppDatabase
+import ru.ipgames.app.model.database.AppDatabaseFavorite
 import ru.ipgames.app.network.AppApi
 import ru.ipgames.app.utils.BASE_URL
 import javax.inject.Singleton
@@ -55,4 +60,11 @@ object NetworkModule {
         return OnlinePlayersAdapter()
     }
 
+
+
+    @Provides
+    @Singleton
+    internal fun provideDataBase(): FavoriteServersDao {
+        return App.getDB().favoriteServersDao()
+    }
 }

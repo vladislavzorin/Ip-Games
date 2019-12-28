@@ -2,9 +2,7 @@ package ru.ipgames.app.base
 
 import androidx.lifecycle.ViewModel
 import ru.ipgames.app.App
-import ru.ipgames.app.injection.component.DaggerViewModelInjector
 import ru.ipgames.app.injection.component.ViewModelInjector
-import ru.ipgames.app.injection.module.NetworkModule
 import ru.ipgames.app.viewModels.*
 
 abstract class BaseViewModel:ViewModel(){
@@ -22,6 +20,7 @@ abstract class BaseViewModel:ViewModel(){
             is HostingsFragmentViewModel -> injector.inject(this)
             is GamesFragmentViewModel -> injector.inject(this)
             is AddYourServerViewModel ->injector.inject(this)
+            is FavoriteServersFragmentViewModel ->injector.inject(this)
             //is ServerItemViewModel -> injector.inject(this)
         }
     }

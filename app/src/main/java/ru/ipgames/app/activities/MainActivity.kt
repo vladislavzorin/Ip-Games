@@ -21,11 +21,8 @@ import ru.ipgames.app.fragments.*
 import ru.ipgames.app.utils.*
 import ru.ipgames.app.viewModels.MainFragmentViewModel
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener ,AboutFragment.OnFragmentInteractionListener{
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
-    override fun onFragmentInteraction(uri: Uri) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     private lateinit var viewModel: MainFragmentViewModel
     private var errorSnackbar: Snackbar? = null
@@ -50,6 +47,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.METHOD, "auth")
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundle)
+
+        UID = "${mAuth.currentUser?.uid}"
     }
 
     private fun initFragment(){
@@ -99,6 +98,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
 
+            R.id.nav_favorite ->{
+                fm.beginTransaction()
+                    .apply { replace(R.id.fragmentLayout, FavoriteServersFragment())}
+                    .addToBackStack(null)
+                    .commit()
+                drawer_layout.closeDrawer(GravityCompat.START)
+            }
+
             R.id.nav_csgo ->replaceServersListFragmentWithSortByGame(5)
             R.id.nav_cs ->replaceServersListFragmentWithSortByGame(2)
             R.id.nav_tf2 ->replaceServersListFragmentWithSortByGame(11)
@@ -142,7 +149,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun showError(@StringRes errorMessage:Int){
-      //  errorSnackbar = Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_INDEFINITE)
         errorSnackbar?.setAction(R.string.retry, viewModel.errorClickListener)
         errorSnackbar?.show()
     }
@@ -164,7 +170,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             R.id.action_about ->{
                 fm.beginTransaction()
-                    .apply { replace(R.id.fragmentLayout, AboutFragment.newInstance("","")) }
+                    .apply { replace(R.id.fragmentLayout, AboutFragment()) }
                     .addToBackStack(null)
                     .commit()
             }

@@ -1,6 +1,5 @@
 package ru.ipgames.app.viewModels
 
-import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -27,16 +26,11 @@ class HostingsFragmentViewModel : BaseViewModel() {
             .flatMap { hosting -> appApi.getInfoAboutHosting(hosting.hosting_id)}
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {info -> onResult(info)},
-                {Log.d("mLog","loadHostings() is ERROR")
-                it.printStackTrace()})
+            .subscribe({info -> onResult(info)},{})
     }
 
     fun onResult(info: InfoAboutHosting){
-        Log.d("mLog","adapter.addInfoAboutHosting(info)")
         adapter.addInfoAboutHosting(info)
-        Log.d("mLog","adapter.notifyDataSetChanged()")
         adapter.notifyDataSetChanged()
     }
 

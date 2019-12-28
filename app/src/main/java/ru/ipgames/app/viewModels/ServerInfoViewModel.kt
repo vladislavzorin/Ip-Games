@@ -8,13 +8,12 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.ipgames.app.adapters.OnlinePlayersAdapter
 import ru.ipgames.app.base.BaseViewModel
-import ru.ipgames.app.model.InfoAboutPlayer
-import ru.ipgames.app.model.ResultInfo
-import ru.ipgames.app.model.Stats
+import ru.ipgames.app.model.*
 import ru.ipgames.app.network.AppApi
 import javax.inject.Inject
 
@@ -24,6 +23,9 @@ class ServerInfoViewModel: BaseViewModel() {
 
     @Inject
     lateinit var adapter: OnlinePlayersAdapter
+
+    @Inject
+    lateinit var db: FavoriteServersDao
 
     @SuppressLint("StaticFieldLeak")
     lateinit var context:Context
@@ -41,38 +43,37 @@ class ServerInfoViewModel: BaseViewModel() {
     var Datastats = MutableLiveData<List<Stats>>()
     var sizeRecyclerView= MutableLiveData<Int>()
 
+    var votesCountLike = MutableLiveData<String>()
+    var votesCountDislike = MutableLiveData<String>()
+    var serverID = MutableLiveData<String>()
+
     var isShowPlayers = MutableLiveData<Int>()
     var isShowRefresh= MutableLiveData<Boolean>()
+    var isFavoriteServer= MutableLiveData<Boolean>()
 
     var setOnClickBtnCopy = View.OnClickListener {  copyIp() }
 
     fun loagInfoAboutServer(ip:String){
-        Log.d("mLog","load -> $ip")
         isShowRefresh.value = true
         serverIP=ip
+
         appApi.getInfoAboutServer(ip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({result -> onResult(result)
-                            isShowRefresh.value = false},
-                        {oError()
-                        it.printStackTrace()})
+                                    isShowRefresh.value = false},{})
 
         appApi.getInfoAboutOnlinePlayersInServer(ip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe ({ value -> onResultOnlinePlayers(value.result)
-                            sizeRecyclerView.value = value.result.size
-                            },
-                        { Log.d("mLog","-ERROR getInfoAboutOnlinePlayersInServer-")
-                            isShowPlayers.value = View.GONE
-                        })
+                                        sizeRecyclerView.value = value.result.size},
+                            {isShowPlayers.value = View.GONE })
 
         appApi.getServerStats(ip)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({value->onResultStats(value)},
-                        { })
+                .subscribe({value->onResultStats(value)},{})
     }
 
     fun  oError(){
@@ -89,6 +90,11 @@ class ServerInfoViewModel: BaseViewModel() {
         location.value = Info.result.country.name
         ping.value = Info.result.ping.toString()+"мс"
         urlMapImg.value = Info.result.map.img
+        votesCountLike.value = Info.result.votes.likes.toString()
+        votesCountDislike.value = Info.result.votes.dislikes.toString()
+
+        serverID.value = Info.result.server_id.toString()
+        cheakFavoriteServer()
     }
 
     fun onResultOnlinePlayers(players:List<InfoAboutPlayer>){
@@ -97,14 +103,39 @@ class ServerInfoViewModel: BaseViewModel() {
     }
 
     fun onResultStats(stats:List<Stats>){
-        Log.d("mLog","size=${stats.size}")
         Datastats.value = stats
     }
 
     fun copyIp(){
-        var clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        var clipData = ClipData.newPlainText("clipboard", serverIP)
+        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("clipboard", serverIP)
         clipboard.primaryClip = clipData
         Toast.makeText(context, "IP сервера скопировано", Toast.LENGTH_SHORT).show()
+    }
+
+    fun insertFavoriteServer(){
+        Observable.fromCallable{db.insert(FavoriteServers(0,serverID.value?:""))}
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                isFavoriteServer.value = true
+            },{})
+    }
+
+    fun cheakFavoriteServer(){
+        Observable.fromCallable{db.cheakServer(serverID.value?:"")}
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({count ->
+                    isFavoriteServer.value = count != 0},{})
+    }
+
+    fun deleteFavoriteServer(){
+        Observable.fromCallable{db.deleteServer(serverID.value?:"")}
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                isFavoriteServer.value = false
+            },{})
     }
 }

@@ -16,8 +16,11 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageButton
 import android.widget.RelativeLayout
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import kotlinx.android.synthetic.main.add_your_server_fragment.*
 import kotlinx.android.synthetic.main.toolbar.*
+import ru.ipgames.app.App
 import ru.ipgames.app.R
 import ru.ipgames.app.databinding.AddYourServerFragmentBinding
 import ru.ipgames.app.utils.ViewAnimation
@@ -32,6 +35,13 @@ class AddYourServerFragment : Fragment() {
 
     private var success_step = 0
     private var current_step = 0
+
+    lateinit var mAdView : AdView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,6 +81,7 @@ class AddYourServerFragment : Fragment() {
         DataBindingUtil.getBinding<AddYourServerFragmentBinding>(view!!)!!.run{
             initComponent(viewModelFragment)
             viewModel = viewModelFragment
+            adView.loadAd(App.getAdRequest()) //реклама
         }
         initActionBar()
     }
@@ -152,7 +163,7 @@ class AddYourServerFragment : Fragment() {
         val relative:RelativeLayout = stepList[index]
         relative.background.setColorFilter(resources.getColor(R.color.green_700), PorterDuff.Mode.SRC_IN)
         relative.removeAllViews()
-        val img: ImageButton = ImageButton(relative.context)
+        val img = ImageButton(relative.context)
         img.setImageResource(R.drawable.ic_done)
         img.setBackgroundColor(Color.TRANSPARENT)
         img.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
@@ -163,7 +174,7 @@ class AddYourServerFragment : Fragment() {
         val relative:RelativeLayout = stepList[2]
         relative.background.setColorFilter(resources.getColor(R.color.red_600), PorterDuff.Mode.SRC_IN)
         relative.removeAllViews()
-        val img: ImageButton = ImageButton(relative.context)
+        val img = ImageButton(relative.context)
         img.setImageResource(R.drawable.ic_close)
         img.setBackgroundColor(Color.TRANSPARENT)
         img.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)

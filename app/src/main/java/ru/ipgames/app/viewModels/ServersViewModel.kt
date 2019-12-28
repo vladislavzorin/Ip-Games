@@ -2,7 +2,6 @@ package ru.ipgames.app.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
-import android.util.Log
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -26,9 +25,9 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
     lateinit var appApi: AppApi
 
     val loadingVisibility: MutableLiveData<Boolean> = MutableLiveData()
-    var isFirstLoad:Boolean = true
-    var isDBObservable:Boolean = false
-    var isLoading = MutableLiveData<Boolean>()
+    private var isFirstLoad:Boolean = true
+    private var isDBObservable:Boolean = false
+    private var isLoading = MutableLiveData<Boolean>()
     var limit:Int = 50
     private var gameIdFilter:Int = 0
     val mutablePage: MutableLiveData<Int> = MutableLiveData()
@@ -78,12 +77,8 @@ class ServersViewModel(private val serverDao: ServerDao, private val obs: Observ
                 .doOnError{ObservDB()}
                 .retryWhen{ob -> ob.take(3).delay(15, TimeUnit.SECONDS)}
                 .repeatWhen {ob -> ob.delay(1 , TimeUnit.MINUTES)}
-                .subscribe({result -> onResult(result)},{oError()})
+                .subscribe({result -> onResult(result)},{})
         )
-    }
-
-    private fun oError(){
-        Log.d("mLog","-ERROR-")
     }
 
     private fun onResult(list:List<Server>)

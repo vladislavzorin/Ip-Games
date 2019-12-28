@@ -19,7 +19,6 @@ import io.reactivex.schedulers.Schedulers
 import ru.ipgames.app.adapters.HostingAndGameAdapter
 import ru.ipgames.app.adapters.MainServersAdapter
 import ru.ipgames.app.R
-import ru.ipgames.app.adapters.ServerAdapter
 import ru.ipgames.app.base.BaseViewModel
 import ru.ipgames.app.fragments.AddYourServerFragment
 import ru.ipgames.app.fragments.GamesFragment

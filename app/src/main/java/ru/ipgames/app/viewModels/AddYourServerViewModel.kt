@@ -74,8 +74,8 @@ class AddYourServerViewModel: BaseViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnTerminate {
-                isProgressBarAddVisible.value = View.GONE
-                isTextAddVisible.value = View.VISIBLE
+                            isProgressBarAddVisible.value = View.GONE
+                            isTextAddVisible.value = View.VISIBLE
             }
             .retryWhen{ob -> ob.take(2).delay(5, TimeUnit.SECONDS)}
             .subscribe({response -> getTextResult(response.success,response.comment?:" ")}

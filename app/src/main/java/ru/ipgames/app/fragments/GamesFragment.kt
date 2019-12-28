@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.games_fragment.*
 import ru.ipgames.app.R
 import ru.ipgames.app.databinding.GamesFragmentBinding
@@ -37,7 +38,7 @@ class GamesFragment : Fragment() {
         DataBindingUtil.getBinding<GamesFragmentBinding>(view!!)!!.run{
             games_info_list.layoutManager = LinearLayoutManager(
                 view!!.context,
-                LinearLayoutManager.VERTICAL,
+                RecyclerView.VERTICAL,
                 false
             )
             viewModel = fragmentViewModel

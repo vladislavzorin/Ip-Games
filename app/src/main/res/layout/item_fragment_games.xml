@@ -29,8 +29,8 @@
                     android:layout_margin="15dp">
                 <ImageView
                         android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginRight="5dp"
                         app:mutableGameImage="@{viewModel.id}"
@@ -43,7 +43,6 @@
                       android:layout_gravity="center_vertical"
                       android:textColor="@color/colorWhite"
                       style="@style/AppTheme.TextStyle"
-                      tools:text="@string/app_name"
                       app:mutableText="@{viewModel.name}"/>
         </LinearLayout>
 

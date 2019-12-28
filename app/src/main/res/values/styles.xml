@@ -18,7 +18,6 @@
     </style>
 
 
-
     <style name="AppTheme.TextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorBlack</item>

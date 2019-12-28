@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.res.ResourcesCompat
 import ru.ipgames.app.R
 import ru.ipgames.app.model.Players
 
@@ -23,35 +24,14 @@ class CustomView(context: Context,attr:AttributeSet) : View(context,attr){
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-
-       // val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
-       // val heightMode = View.MeasureSpec.getMode(heightMeasureSpec)
         val widthSize = View.MeasureSpec.getSize(widthMeasureSpec)
-       // val heightSize = View.MeasureSpec.getSize(heightMeasureSpec)
-/*
-        val width = when (widthMode) {
-            View.MeasureSpec.EXACTLY -> widthSize
-            View.MeasureSpec.AT_MOST -> defaultBarWidth
-            View.MeasureSpec.UNSPECIFIED -> defaultBarWidth
-            else -> defaultBarWidth
-        }
-
-        val height = when (heightMode) {
-            View.MeasureSpec.EXACTLY -> heightSize
-            View.MeasureSpec.AT_MOST -> defaultBarHeight
-            View.MeasureSpec.UNSPECIFIED -> defaultBarHeight
-            else -> defaultBarHeight
-        }
-        */
         setMeasuredDimension(widthSize,widthSize)
     }
 
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        rect.set(20.toFloat() ,20.toFloat() ,width.toFloat()-20,height.toFloat()-20)
-       // koff=players.now.toFloat()/players.max.toFloat()
-
+        rect.set(18.toFloat() ,18.toFloat() ,width.toFloat()-18,height.toFloat()-18)
         paint.isAntiAlias=true
 
         paint.color = when ((koff*100).toInt()){
@@ -78,10 +58,11 @@ class CustomView(context: Context,attr:AttributeSet) : View(context,attr){
 
         paint.color= Color.WHITE
         paint.style=Paint.Style.FILL
-        paint.strokeWidth=1.toFloat()
+
+        paint.typeface = ResourcesCompat.getFont(context, R.font.open_sans_regular)
 
         paint.textSize=if ("${players.now}/${players.max}".length<=5) 34.toFloat() else
-            if ("${players.now}/${players.max}".length<=7) 30.toFloat() else 24.toFloat()
+            if ("${players.now}/${players.max}".length<=7) 29.toFloat() else 22.toFloat()
 
         canvas.drawText("${players.now}/${players.max}",
                 (width.toFloat()-paint.measureText("${players.now}/${players.max}")) / 2.0F,
@@ -92,6 +73,5 @@ class CustomView(context: Context,attr:AttributeSet) : View(context,attr){
         paint.style=Paint.Style.STROKE
         paint.strokeWidth=10.toFloat()
         canvas.drawArc(rect,135.toFloat(),(koff * 270),false,paint)
-
     }
 }

@@ -2,10 +2,7 @@ package ru.ipgames.app.model.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ru.ipgames.app.model.Server
-import ru.ipgames.app.model.ServerDao
-import ru.ipgames.app.model.Servers
-import ru.ipgames.app.model.ServersDao
+import ru.ipgames.app.model.*
 
 @Database(entities = [Server::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
@@ -15,4 +12,9 @@ abstract class AppDatabase : RoomDatabase() {
 @Database(entities = [Servers::class], version = 1)
 abstract class AppDatabaseMainServers : RoomDatabase() {
     abstract fun serversDao(): ServersDao
+}
+
+@Database(entities = [FavoriteServers::class], version = 1)
+abstract class AppDatabaseFavorite : RoomDatabase() {
+    abstract fun favoriteServersDao(): FavoriteServersDao
 }

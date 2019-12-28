@@ -4,12 +4,11 @@ import dagger.Component
 import ru.ipgames.app.activities.SearchActivity
 import ru.ipgames.app.viewModels.GamesFragmentViewModel
 import ru.ipgames.app.injection.module.NetworkModule
-import ru.ipgames.app.injection.module.RoomModule
 import ru.ipgames.app.viewModels.*
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [(NetworkModule::class),(RoomModule::class)])
+@Component(modules = [(NetworkModule::class)])
 interface ViewModelInjector{
 
     fun inject(serverListViewModel: MainFragmentViewModel)
@@ -26,10 +25,11 @@ interface ViewModelInjector{
 
     fun inject(gamesFragmentViewModel: GamesFragmentViewModel)
 
+    fun inject(favoriteServersFragmentViewModel: FavoriteServersFragmentViewModel)
+
     @Component.Builder
     interface Builder {
         fun build(): ViewModelInjector
         fun networkModule(networkModule: NetworkModule): Builder
-        fun roomModule(RoomModule: RoomModule): Builder
     }
 }

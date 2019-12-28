@@ -67,8 +67,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         app:mutableGameImage="@{viewModel.gameid}" />
 
                     <View
@@ -81,7 +81,11 @@
                         android:layout_height="wrap_content"
                         app:mutableText="@{viewModel.name}"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-                        android:textColor="@android:color/white" />
+                        android:textColor="@android:color/white"
+                        android:gravity="center_horizontal"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:fontFamily="@font/open_sans_bold"/>
 
                 </LinearLayout>
 
@@ -140,18 +144,18 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:minHeight="35dp"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:text="Статус:"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
                             <View
                                 android:layout_width="@dimen/spacing_middle"
@@ -161,28 +165,27 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 app:mutableText="@{viewModel.status}"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_40" />
+                                android:textColor="@color/grey_40"/>
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:minHeight="35dp"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:text="Адрес:"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
 
                             <View
@@ -193,7 +196,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40"
                                 android:text="@{viewModel.serverIP}"/>
@@ -217,18 +219,18 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:minHeight="35dp"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:text="Онлайн:"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
                             <View
                                 android:layout_width="@dimen/spacing_middle"
@@ -239,28 +241,28 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 app:mutableText="@{viewModel.nowMax}"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                                android:textColor="@color/grey_40" />
+                                android:textColor="@color/grey_40"
+                                />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:minHeight="35dp"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:text="Карта:"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
                             <View
                                 android:layout_width="@dimen/spacing_middle"
@@ -270,7 +272,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:maxLines="1"
                                 app:mutableText="@{viewModel.mapName}"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
@@ -280,18 +281,18 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:minHeight="35dp"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:text="Игра:"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
                             <View
                                 android:layout_width="@dimen/spacing_middle"
@@ -301,7 +302,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 app:mutableText="@{viewModel.gameName}"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40" />
@@ -311,18 +311,18 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:minHeight="35dp"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:text="Локация:"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
                             <View
                                 android:layout_width="@dimen/spacing_middle"
@@ -332,7 +332,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:maxLength="13"
                                 android:maxLines="1"
                                 app:mutableText="@{viewModel.location}"
@@ -347,11 +346,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:text="Пинг:"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="@color/grey_40"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
 
                             <View
                                 android:layout_width="@dimen/spacing_middle"
@@ -361,7 +359,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical"
-                                android:minHeight="@dimen/spacing_xmlarge"
                                 android:maxLines="1"
                                 app:mutableText="@{viewModel.ping}"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
@@ -423,6 +420,7 @@
                     android:layout_height="@dimen/spacing_large" />
 
                 <androidx.cardview.widget.CardView
+                        tools:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/spacing_large"
@@ -432,7 +430,6 @@
                     app:cardElevation="2dp">
 
                     <LinearLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -460,6 +457,94 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/spacing_large" />
+
+                <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/spacing_large"
+                        android:layout_marginRight="@dimen/spacing_large"
+                        android:background="@android:color/white"
+                        app:cardCornerRadius="2dp"
+                        app:cardElevation="2dp">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/spacing_large"
+                            android:paddingLeft="@dimen/spacing_large"
+                            android:paddingRight="@dimen/spacing_large">
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="?attr/actionBarSize"
+                                android:gravity="center_vertical"
+                                android:text="Рейтинг сервера"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:textColor="@color/grey_80" />
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="@dimen/spacing_xmlarge"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+
+                            <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:tint="@color/green_700"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/ic_thumb_up"
+                                    tools:ignore="VectorDrawableCompat"
+                                    android:layout_marginRight="5dp"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:minHeight="@dimen/spacing_xmlarge"
+                                    app:mutableText="@{viewModel.votesCountLike}"
+                                    android:textSize="18sp"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                    android:textColor="@color/green_700"
+                                    android:textStyle="bold"
+                            />
+
+                            <View
+                                    android:layout_width="50dp"
+                                    android:layout_height="1dp" />
+
+                            <ImageView
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:tint="@color/red_700"
+                                    android:layout_gravity="center_vertical"
+                                    app:srcCompat="@drawable/ic_thumb_down"
+                                    tools:ignore="VectorDrawableCompat"
+                                    android:layout_marginRight="5dp"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical"
+                                    android:minHeight="@dimen/spacing_xmlarge"
+                                    app:mutableText="@{viewModel.votesCountDislike}"
+                                    android:textSize="18sp"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                                    android:textColor="@color/red_700"
+                                    android:textStyle="bold"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_large" />
 
             </LinearLayout>
 

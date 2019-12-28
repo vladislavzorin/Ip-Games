@@ -63,7 +63,7 @@ fun setMutableGameImage(view: ImageView, text: MutableLiveData<String>?) {
         text.observe(parentActivity, Observer { value ->
             Picasso.get()
                     .load("file:///android_asset/$value.png")
-                    .resize(64, 64)
+                    //.resize(64, 64)
                     .error(R.drawable.ic_videogame_asset)
                     .into(view)
         })
@@ -76,7 +76,7 @@ fun setGameImage(view: ImageView, text: Int?) {
     if (parentActivity != null && text != null) {
             Picasso.get()
                 .load("file:///android_asset/${text.toString()}.png")
-                .resize(64, 64)
+                //.resize(64, 64)
                 .error(R.drawable.ic_videogame_asset)
                 .into(view)
     }

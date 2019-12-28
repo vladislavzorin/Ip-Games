@@ -58,7 +58,7 @@ class ServersListFragment() : Fragment() {
             })
             linearLayoutManager = LinearLayoutManager(
                 view!!.context,
-                LinearLayoutManager.VERTICAL,
+                RecyclerView.VERTICAL,
                 false
             )
             serversList.layoutManager = linearLayoutManager
@@ -66,15 +66,14 @@ class ServersListFragment() : Fragment() {
             serversViewModel.setFilterMode(isFilterMode,gameId)
             serversViewModel.initFirstSettings()
             viewModel = serversViewModel
-
         }
         initActionBar()
     }
 
-    fun initActionBar(){
+    private fun initActionBar(){
         (activity as AppCompatActivity).supportActionBar!!.title = "Сервера"
 
-        var layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
+        val layoutParams: AppBarLayout.LayoutParams = (activity as AppCompatActivity)
             .maintoolbar
             .layoutParams as AppBarLayout.LayoutParams
 
@@ -99,8 +98,6 @@ class ServersListFragment() : Fragment() {
                                subscriber.onNext(++page)
                             }
                     }
-
-
                 }
             }
             recyclerView.addOnScrollListener(sl)
@@ -109,12 +106,6 @@ class ServersListFragment() : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-      /*  DataBindingUtil.getBinding<ServersListFragmentBinding>(view!!)!!.run{
-            serversViewModel.unSubscribeAll()
-            viewModel = serversViewModel
-        }
-       */
         serversViewModel.unSubscribeAll()
     }
-
 }

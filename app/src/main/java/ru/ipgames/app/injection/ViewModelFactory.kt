@@ -20,7 +20,7 @@ class ViewModelFactory(private val activity: AppCompatActivity): ViewModelProvid
             @Suppress("UNCHECKED_CAST")
             return MainFragmentViewModel(postDao = db.serversDao()) as T
         }
-        throw IllegalArgumentException("Unknown ViewModel class") as Throwable
+        throw IllegalArgumentException("Unknown ViewModel class")
 
     }
 }
